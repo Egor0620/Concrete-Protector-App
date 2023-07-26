@@ -1,0 +1,37 @@
+<div ng-init="init();" class="text-center" style="margin-top: 15px;  margin-left: 15px; margin-right: 15px;">
+
+  <div style="text-align: left">
+    <h3>Coatings Estimator Pro</h3>
+
+    <div>
+    - Each monthly subscription last for one month<br>
+    - Price of subscription is $9.99 a month<br>
+    - Payment will be charged to iTunes Account at confirmation of purchase<br>
+    - Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period<br>
+    - Account will be charged for renewal within 24-hours prior to the end of the current period, at a cost of $9.99<br>
+    - Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase<br>
+    - No cancellation of the current subscription is allowed during active subscription period<br>
+    - Links to our <a href="http://coatingsestimator.com/privacy-policy/">Privacy Policy</a> and <a href="http://coatingsestimator.com/terms-and-conditions-of-use/">Terms of Use</a><br>
+    </div>
+  </div>
+  <br><br>
+  <input type="checkbox" ng-model="aggreed"  name="checkbox" id="checkbox" value="value">
+  <label for="checkbox">I agree to terms and conditions</label>
+  <br><br>
+
+
+  <div class="row">
+        <div class="col-xs-12">
+            <button type="button" ng-click="buyMonthly();" class="btn btn-left btn-grey btn-block">
+                Subscription monthly
+            </button>
+          <button type="button" ng-click="buyYearly();" class="btn btn-left btn-grey btn-block">
+            Subscription yearly
+          </button>
+          <button ng-show="false" type="button" ng-click="testBuy();" class="btn btn-left btn-grey btn-block" ui-sref="index.preference({type:'system'})">
+            Test buy
+          </button>
+        </div>
+    </div>
+  <br>
+</div>

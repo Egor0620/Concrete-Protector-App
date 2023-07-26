@@ -1,0 +1,37 @@
+<div style="width: 250px; margin-top: 15px; margin-left: auto; margin-right: auto;">
+  <div>
+    <input type="text" class="form-control" placeholder="{{SearchPlaceholder}}" ng-model="search">
+  </div>
+</div>
+<div class="row" ng-show="errors.length > 0">
+  <ul>
+    <li ng-repeat="error in errors">
+      {{error}}
+    </li>
+  </ul>
+</div>
+<div style="margin-top: 15px; width:100%; color: white;">
+    <table style="background-color: white;" width="100%">
+      <thead>
+      <tr style="border-bottom: 1px solid gray;">
+        <th>&nbsp;&nbsp;&nbsp;<a class="blueish" ng-click="predicate = 'lastname'; reverse=!reverse">Customer</a></th>
+        <th><a class="blueish" ng-click="predicate = 'displayDate'; reverse=!reverse">{{datename}}</a></th>
+        <th><a class="blueish" ng-click="predicate = 'cost'; reverse=!reverse">$</a></th>
+      </tr>
+      </thead>
+      <tbody style="border-bottom: 1px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+      <tr ui-sref="index.project({leadid: project.leadid, projectid : project.id})" class="space2" style="cursor: pointer; vertical-align: top;"
+          ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+          ng-repeat="project in Projects  | orderBy:predicate:reverse | filter:search:strict"
+
+        >
+        <td>
+          <span ng-if="project.hasnames">&nbsp;&nbsp;{{project.firstname}} {{project.lastname}}</span>
+          <span ng-if="project.company"><br ng-if="project.hasnames" />&nbsp;&nbsp;{{project.company}}</span>
+        </td>
+        <td><span ng-if="project.hasdate">{{project.date | date:"MM/dd/yyyy"}}</span></td>
+        <td>{{project.cost | currency}}<br />{{project.area}} sq/ft</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>

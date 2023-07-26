@@ -1,0 +1,92 @@
+<div
+  style=" background-color: #ffffff; padding-left: 10px; padding-right:10px; margin-top: 20px; margin-left: 5px; margin-right: 5px; width:auto; ">
+  <form>
+    <input type="hidden" value="System.version">
+    <div class="row" style="color: red;" ng-show="!!System.errors.length">
+      <ul>
+        <li ng-repeat="error in System.errors">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        Name<br/><input class="form-control" type="text" ng-model="System.name" placeholder="system name">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        Active<br />
+        <input type="radio" id="activestatus" ng-model="System.status" value="1">&nbsp;<label for="activestatus">True</label>
+        <input type="radio" id="inactivestatus" ng-model="System.status" value="0">&nbsp;<label for="inactivestatus">False</label>
+
+        <span ng-show="IsInRoles(['concreteprotector','administrator'])" class='hidden'><br />
+          <input type="checkbox"  ng-model="System.share"  name="share" id="share" value="value">
+          <label for="share">Share</label>&nbsp;
+        </span>
+      </div>
+      <div class="col-sm-6">
+        System Price / sq ft<br />
+        <input type="number" step="any" class="form-control" ng-model="System.saleprice" placeholder="system price">
+      </div>
+    </div>
+
+    <div class="row" ng-hide="showIngredients">
+      <div class="col-xs-12">
+        <a class="btn  btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showIngredients = !showIngredients"><i
+          style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Ingredients ({{IngredientCount}})</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showIngredients">
+      <div class="col-xs-12" >
+        <a class="btn  btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showIngredients = !showIngredients"><i
+          style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Ingredients ({{IngredientCount}})</a>
+      </div>
+    </div>
+
+    <div class="row small-font" ng-show="showIngredients">
+      <div class="col-xs-4 text-center" >
+      </div>
+      <div class="col-xs-3 text-center" >
+        Purchase<br> Price
+      </div>
+      <div class="col-xs-3 text-center" >
+        Units
+      </div>
+      <div class="col-xs-3 text-center" >
+        Extra
+      </div>
+    </div>
+    <div class="row" ng-show="showIngredients" ng-repeat="ingredient in Ingredients">
+      <div class="col-xs-4">
+        <input type="checkbox"  ng-checked="ingredient.checked" ng-click="checkIngredient(ingredient.id)" name="checkbox_{{ingredient.id}}" id="checkbox_{{ingredient.id}}" value="value">
+        <label for="checkbox_{{ingredient.id}}">{{ingredient.name}}</label>
+      </div>
+
+      <div class="col-xs-3">
+        {{ingredient.purchaseprice}}
+      </div>
+      <div class="col-xs-3">
+        <input type="hidden" ng-model="ingredient.primefactor">
+        <select style="width: 100%;"
+                ng-model="ingredient.factor"
+                ng-options="rel.key as rel.display for rel in FactorOptions">
+          <option style="display:none" value=""></option>
+        </select>
+      </div>
+      <div class="col-xs-3">
+        <input type="text" class="form-control" maxlength="100" ng-model="ingredient.extra">
+        <input type="hidden" ng-model="ingredient.primeextra">
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+        <button ng-disabled="saving"  type="submit" class="btn btn-success" ng-click="Save(System)">Save</button>
+        <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+        <button ng-hide="IsNew" type="button" class="btn btn-danger" ng-click="Remove(System.id)">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>

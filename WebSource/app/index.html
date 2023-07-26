@@ -1,0 +1,143 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+        <!-- build:css({.tmp,app}) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
+<body id="appBody" ng-cloak >
+<div class="container-fluid" ui-view></div>
+
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/lodash/dist/lodash.compat.js"></script>
+<script src="bower_components/restangular/dist/restangular.js"></script>
+<script src="bower_components/jSignature/src/jSignature.js"></script>
+<script src="bower_components/jSignature/src/plugins/jSignature.CompressorBase30.js"></script>
+<script src="bower_components/jSignature/src/plugins/jSignature.CompressorSVG.js"></script>
+<script src="bower_components/jSignature/src/plugins/jSignature.UndoButton.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<script src="cordova.js"></script>
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/header.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/settings.js"></script>
+<script src="scripts/directives/textarea.js"></script>
+<script src="scripts/directives/modal.js"></script>
+
+<script src="scripts/services/config.js"></script>
+<script src="scripts/services/httpinterceptor.js"></script>
+<script src="scripts/services/ignore.js"></script>
+<script src="scripts/services/localservice.js"></script>
+<script src="scripts/services/reference.js"></script>
+<script src="scripts/services/service.js"></script>
+<script src="scripts/services/utility.js"></script>
+<script src="scripts/services/uuid4.js"></script>
+
+<script src="scripts/controllers/account/feedback.js"></script>
+<script src="scripts/controllers/account/login.js"></script>
+<script src="scripts/controllers/account/register.js"></script>
+<script src="scripts/controllers/account/changepassword.js"></script>
+<script src="scripts/controllers/account/subscribe.js"></script>
+
+<script src="scripts/controllers/contracttemplate/contracttemplate.js"></script>
+<script src="scripts/controllers/contracttemplate/contracttemplatelayout.js"></script>
+
+<script src="scripts/controllers/preference/preference.js"></script>
+
+<script src="scripts/controllers/system/color.js"></script>
+<script src="scripts/controllers/system/ingredient.js"></script>
+<script src="scripts/controllers/system/pattern.js"></script>
+<script src="scripts/controllers/system/system.js"></script>
+
+<script src="scripts/controllers/team/team.js"></script>
+<script src="scripts/services/team/team.js"></script>
+
+<script src="scripts/services/account/account.js"></script>
+<script src="scripts/services/account/authorization.js"></script>
+<script src="scripts/services/account/iap.js"></script>
+
+<script src="scripts/services/contracttemplate/contracttemplate.js"></script>
+
+
+<script src="scripts/services/system/color.js"></script>
+<script src="scripts/services/system/ingredient.js"></script>
+<script src="scripts/services/system/ingredientcolor.js"></script>
+<script src="scripts/services/system/ingredientpattern.js"></script>
+<script src="scripts/services/system/pattern.js"></script>
+<script src="scripts/services/system/system.js"></script>
+<script src="scripts/services/system/systemdetail.js"></script>
+
+<script src="scripts/controllers/lead/contract.js"></script>
+<script src="scripts/controllers/lead/newcontract.js"></script>
+<script src="scripts/controllers/lead/estimates.js"></script>
+<script src="scripts/controllers/lead/newlead.js"></script>
+<script src="scripts/controllers/lead/lead.js"></script>
+<script src="scripts/controllers/lead/leads.js"></script>
+<script src="scripts/controllers/lead/project.js"></script>
+<script src="scripts/controllers/lead/projects.js"></script>
+
+<script src="scripts/services/lead/contract.js"></script>
+<script src="scripts/services/lead/lead.js"></script>
+<script src="scripts/services/lead/leaddetail.js"></script>
+<script src="scripts/services/lead/project.js"></script>
+<script src="scripts/services/lead/projectdetail.js"></script>
+<script src="scripts/services/lead/projectdetailstyle.js"></script>
+
+
+
+<script src="scripts/services/errorhandler.js"></script>
+<script src="scripts/services/person.js"></script>
+<script src="scripts/services/address.js"></script>
+<script src="scripts/services/phone.js"></script>
+<script src="scripts/services/log.js"></script>
+<script src="scripts/services/note.js"></script>
+<script src="scripts/services/basefactory.js"></script>
+<script src="scripts/services/storage.js"></script>
+<script src="scripts/directives/signature.js"></script>
+
+<script src="scripts/filters/sanitize.js"></script>
+<!-- endbuild -->
+
+<script type="text/javascript">
+  /*
+   ng-cloak ng-app="app"
+   */
+  angular.element(document).ready(function() {
+    var appBody = document.getElementById('appBody');
+    if (window.cordova) {
+      document.addEventListener('deviceready', function() {
+
+        angular.bootstrap(appBody, ['estimateApp']);
+        navigator.splashscreen.hide();
+      }, false);
+    } else {
+      angular.bootstrap(document.body, ['estimateApp']);
+    }
+  });
+
+</script>
+</body>
+</html>

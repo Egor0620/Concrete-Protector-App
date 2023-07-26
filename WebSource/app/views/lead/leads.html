@@ -1,0 +1,29 @@
+<div style="width: 250px; margin-top: 15px; margin-left: auto; margin-right: auto;">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="search leads" ng-model="search">
+        <a ng-disabled="DisableAddLead" class="btn btn-success input-group-addon" ui-sref="index.newlead">New Lead</a>
+    </div>
+</div>
+<div class="row" ng-show="errors.length > 0">
+    <ul>
+        <li ng-repeat="error in errors">
+            {{error}}
+        </li>
+    </ul>
+</div>
+<div style="margin-top: 15px; width:100%; color: white;">
+<table width="100%;">
+  <tbody style="border-bottom: 1px solid gray; padding-bottom: 10px; margin-bottom: 10px;">
+  <tr ng-click="goto(lead.id)" class="space2"
+      ng-repeat="lead in Leads | filter:search:strict"
+      ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+    >
+    <td>
+      <span ng-if="lead.hasNames">&nbsp;&nbsp;{{lead.firstname}} {{lead.lastname}}</span>
+      <span ng-if="lead.company"><br ng-if="lead.hasNames" />&nbsp;&nbsp;{{lead.company}}</span>
+    </td>
+    <td><a class="white-text" href="tel:{{lead.phone}}">{{lead.phone}}</a></td>
+  </tr>
+  </tbody>
+</table>
+</div>

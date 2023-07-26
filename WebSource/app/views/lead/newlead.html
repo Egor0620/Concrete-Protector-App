@@ -1,0 +1,329 @@
+<div class="entity">
+  <form novalidate>
+    <div class="row" style="color: red;" ng-show="!!Model.errors.length">
+      <ul>
+        <li ng-repeat="error in Model.errors">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 ">
+        First Name
+        <input class="form-control" type="text" ng-model="Model.firstname"
+               placeholder="first name"></div>
+      <div class="col-xs-6">
+        Last Name
+        <input class="form-control" type="text" ng-model="Model.lastname"
+               placeholder="last name"></div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 ">
+        Design Consult Date
+        <input type="text" ng-click="ds1 = true" is-open="ds1" datepicker-popup="shortDate" class="form-control" ng-model="Model.designconsultdate" close-text="Close" placeholder="design consult date" />
+      </div>
+      <div class="col-xs-6 ">
+        Company
+        <input class="form-control" type="text" maxlength="249" ng-model="Model.company" placeholder="company">
+      </div>
+    </div>
+
+    <div class="row" ng-hide="showSystem">
+      <div class="col-xs-12">
+        <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showSystem = !showSystem"><i
+          style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Systems</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showSystem">
+      <div class="col-xs-12">
+        <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showSystem = !showSystem"><i
+          style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Systems</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showSystem">
+      <div class="col-xs-12">
+        Note<br />
+          <textarea class="form-control" ng-model="Model.note"
+                    placeholder="note"
+                    style="width: 100%;" rows="2"></textarea>
+      </div>
+    </div>
+    <div ng-show="showSystem">
+      <div class="row" ng-show="showSystem">
+        <div class="col-xs-12">
+          Area Name
+          <input class="form-control" type="text" ng-model="LeadSystem.areaname"
+                 placeholder="area name">
+        </div>
+      </div>
+      <div class="row" ng-show="showSystem">
+        <div class="col-xs-6">
+          Length ft.
+          <input class="form-control" type="number" ng-model-options="{debounce:1000}" ng-change="AreaChanged()"
+                 ng-model="LeadSystem.length"
+                 placeholder="length">
+        </div>
+        <div class="col-xs-6">
+          Width ft.
+          <input class="form-control" type="number" ng-model-options="{debounce:1000}" ng-change="AreaChanged()"
+                 ng-model="LeadSystem.width"
+                 placeholder="width">
+        </div>
+      </div>
+      <div class="row" ng-show="showSystem">
+        <div class="col-xs-12">
+          System
+          <select style="width: 100%;"
+                  ng-model="LeadSystem.systemid"
+                  ng-change="SystemChange(LeadSystem.systemid)"
+                  ng-options="rel.id as rel.name + ' $' + rel.saleprice +' / sqft' for rel in Systems">
+            <option style="display:none" value=""></option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" ng-show="showSystem">
+        <div class="col-xs-12">
+        <span ng-show="!!System.ingredients.length">
+          <span ng-hide="showIngredients">
+                    <a class="btn btn-link-nolink btn-md"
+                       ng-click="showIngredients = !showIngredients"><i
+                      style="margin-top: 3px;" class="pull-right fa fa-plus-circle"></i></a>
+          </span>
+          <span ng-show="showIngredients">
+                    <a class="btn btn-link-nolink btn-md"
+                       ng-click="showIngredients = !showIngredients"><i
+                      style="margin-top: 3px;" class="pull-right fa fa-minus-circle"></i></a>
+          </span>
+                        Coverage: {{System.coverage}} sq.ft.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span ng-hide="showAreaPrice">
+                        <button class="btn btn-link btn-link-nolink" ng-click="showAreaPrice=!showAreaPrice">
+                          {{System.saleprice | currency}} / sqft
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+            </span>
+          <span ng-show="showAreaPrice">
+            <input type="number" step="any" style="background-color: green; color: white;"
+                   ng-model-options="{debounce:1000}" ng-change="AreaChanged()"
+                   ng-model="System.saleprice">
+                        <button class="btn btn-success" ng-click="showAreaPrice=!showAreaPrice">ok</button>
+          </span>
+          System price: {{System.price | currency}}
+</span>
+          <span ng-show="showIngredients">
+          <table ng-show="System.ingredients.length !== 0 " width="100%">
+            <thead>
+            <tr style="border: 1px solid black;">
+              <th>
+                <button class="btn btn-link btn-link-nolink" ng-click="showContractorPrice=!showContractorPrice">
+                  &nbsp;&nbsp;Amount&nbsp;
+                </button>
+              </th>
+              <th ng-show="showContractorPrice">Price</th>
+              <th>Ingredient</th>
+              <th>&nbsp;Extra&nbsp;</th>
+              <th>&nbsp;Units&nbsp;</th>
+              <th>Color</th>
+              <th>Pattern</th>
+            </tr>
+            </thead>
+            <tbody style="border-bottom: 1px solid black;">
+            <tr ng-repeat="detail in System.ingredients">
+              <td>&nbsp;&nbsp;{{detail.amount}}</td>
+              <th ng-show="showContractorPrice">{{detail.contractorprice | currency}}</th>
+              <td>{{detail.name}}</td>
+              <td>{{detail.extra}}</td>
+              <td>{{detail.factor}}</td>
+              <td>
+                <span ng-show="detail.colors.length === 0">no colors</span>
+                <select ng-show="detail.colors.length > 0" style="width: 100%;"
+                        ng-model="detail.style.colorid"
+                        ng-options="rel.id as rel.name for rel in detail.colors">
+                  <option style="display:none" value=""></option>
+                </select>
+              </td>
+              <td>
+                <span ng-show="detail.patterns.length === 0">no patterns</span>
+                <select style="width: 100%;"
+                        ng-show="detail.patterns.length > 0"
+                        ng-model="detail.style.patternid"
+                        ng-options="rel.id as rel.name for rel in detail.patterns">
+                  <option style="display:none" value=""></option>
+                </select>
+              </td>
+            </tr>
+            <tr ng-show="showContractorPrice">
+              <td>Ingredient Cost</td>
+              <td>{{System.contractortotalprice | currency}}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+          </span>
+        </div>
+      </div>
+      <div class="row" ng-show="showSystem">
+        <div ng-hide="LeadSystemEdit" class="col-xs-12" style="text-align: center; margin-top: 10px;">
+          <button type="button" class="btn btn-success" ng-click="AddSystem(LeadSystem)">Add System</button>
+        </div>
+        <div ng-show="LeadSystemEdit" class="col-xs-12" style="text-align: center; margin-top: 10px;">
+          <button type="button" class="btn btn-success" ng-click="UpdateSystem(LeadSystem)">Update</button>
+          <button type="button" class="btn btn-default" ng-click="CancelUpdateSystem(LeadSystem)">Cancel</button>
+          <button type="button" class="btn btn-danger" ng-click="RemoveSystem(LeadSystem)">Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" ng-show="showSystem">
+      <div class="col-xs-12">
+        <table style="background-color: white;" width="100%">
+          <thead>
+          <tr style="border-bottom: 1px solid gray;">
+            <th>&nbsp;&nbsp;&nbsp;<a class="blueish" ng-click="predicate = 'areaname'; reverse=!reverse">Area Name</a>
+            </th>
+            <th><a class="blueish" ng-click="predicate = 'name'; reverse=!reverse">System</a></th>
+            <th><a class="blueish" ng-click="predicate = 'System.coverage'; reverse=!reverse">Area</a></th>
+          </tr>
+          </thead>
+          <tbody style="border-bottom: 1px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+          <tr ng-click="EditSystem(system, $index)" class="space2" style="cursor: pointer;"
+              ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+              ng-repeat="system in LeadSystems  | orderBy:predicate:reverse">
+            <td>
+              &nbsp;<i class="fa fa-pencil"></i>
+              {{system.areaname}}
+            </td>
+            <td>{{system.System.name}}</td>
+            <td>{{system.System.coverage}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row" ng-hide="showDetail">
+      <div class="col-xs-12">
+        <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showDetail = !showDetail"><i
+          style="margin-top: 3px;" class=" pull-left fa fa-plus-circle"></i> Lead Detail</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showDetail">
+      <div class="col-xs-12">
+        <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showDetail = !showDetail"><i
+          style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Lead Detail</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showDetail">
+      <div class="col-xs-6">
+        Phone Number
+        <input class="form-control" type="text" ng-model="Model.number"
+               placeholder="number">
+      </div>
+      <div class="col-xs-6">
+        Phone Type
+        <select style="width: 100%;"
+                ng-model="Model.phonetype"
+                ng-options="rel.phonetype as rel.phonetype for rel in PhoneTypes">
+          <option style="display:none" value=""></option>
+        </select>
+      </div>
+    </div>
+    <div class="row" ng-show="showDetail">
+      <div class="col-xs-12">
+        Email
+        <input class="form-control" type="email" ng-model="Model.email"
+               placeholder="email">
+      </div>
+    </div>
+    <div class="row" ng-show="showDetail">
+      <div class="col-xs-12">Best time to call?
+        <select style="width: 100%;"
+                ng-model="Model.besttimetocall"
+                ng-options="rel.key as rel.time for rel in BestTimeToCalLOptions">
+          <option style="display:none" value=""></option>
+        </select>
+      </div>
+    </div>
+    <div class="row" ng-show="showDetail">
+      <div class="col-xs-12">How did you hear about us?
+          <textarea class="form-control" ng-model="Model.hearaboutus"
+                    placeholder="how did you hear about us"
+                    style="width: 100%;" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="row" ng-show="showDetail">
+      <div class="col-xs-12">How can we help?
+          <textarea class="form-control" ng-model="Model.howcanwehelp"
+                    placeholder="how can we help"
+                    style="width: 100%;" rows="2"></textarea>
+      </div>
+    </div>
+
+    <div class="row" ng-hide="showAddress">
+      <div class="col-xs-12">
+        <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showAddress = !showAddress"><i
+          style="margin-top: 3px;" class="fa fa-plus-circle pull-left"></i> Address</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showAddress">
+      <div class="col-xs-12">
+        <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showAddress = !showAddress"><i
+          style="margin-top: 3px;" class="fa fa-minus-circle pull-left"></i> Address</a>
+        <br/>
+        Address
+        <input class="form-control" type="text" ng-model="Model.address1"
+               placeholder="address">
+      </div>
+    </div>
+    <div class="row" ng-show="showAddress">
+      <div class="col-xs-12">
+        <input class="form-control" type="text" ng-model="Model.address2">
+      </div>
+    </div>
+    <div class="row" ng-show="showAddress">
+      <div class="col-xs-12">
+        City
+        <input class="form-control" type="text" ng-model="Model.city"
+               placeholder="city">
+      </div>
+    </div>
+    <div class="row" ng-show="showAddress">
+      <div class="col-xs-12">
+        State
+        <select style="width: 100%;"
+                ng-model="Model.state"
+                ng-options="rel.id as rel.state for rel in States">
+          <option style="display:none" value=""></option>
+        </select>
+      </div>
+    </div>
+    <div class="row" ng-show="showAddress">
+      <div class="col-xs-12">
+        Zip
+        <input class="form-control" type="text" ng-model="Model.zip"
+               placeholder="zip">
+      </div>
+    </div>
+    <div class="row" ng-show="showAddress">
+      <div class="col-xs-12">
+        Type
+        <select style="width: 100%;"
+                ng-model="Model.addresstype"
+                ng-options="rel.addresstype as rel.addresstype for rel in AddressTypes">
+          <option style="display:none" value=""></option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+        <button ng-disabled="saving" type="submit" class="btn btn-success" ng-click="SaveLead(Model)">Save</button>
+        <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>

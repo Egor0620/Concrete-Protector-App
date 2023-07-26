@@ -1,0 +1,30 @@
+<div style="margin-top: 15px;  margin-left: 5px; margin-right: 5px;">
+    <div class="row">
+        <div class="col-xs-12">
+            Select a subscription option below.  Your subscription will start immediately and provide access to the following:<br />
+            <ul>
+                <li>Create a Team</li>
+                <li>Create Systems</li>
+                <li>Create Contracts</li>
+                <li>Share Systems and Contracts with your Team</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" ng-repeat="product in Products">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-primary btn-block" ng-click="Buy(product)">
+                {{product.price}} {{product.title}}
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <a ng-click="Cancel()" class="btn btn-default btn-block">Cancel</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <a ng-click="Test()" class="btn btn-default btn-block">Test</a>
+        </div>
+    </div>
+</div>

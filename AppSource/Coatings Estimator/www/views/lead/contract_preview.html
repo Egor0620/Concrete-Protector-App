@@ -1,0 +1,66 @@
+<head>
+  <!--<meta http-equiv="Content-Security-Policy" content="img-src * data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'"/>-->
+</head>
+<div style="margin:1em 1em">
+  <!-- Logo image -->
+  <img style='max-height:150px;' ng-show='model.logo.length != 0' ng-src='{{model.logo}}' style='width:auto; height: 150px;'><br>
+
+  <br>
+  <h4 style='text-align:center; text-decoration: underline'>{{model.title}}</h4>
+  <br>
+
+  <div ng-bind-html='model.lead.person.name'></div>
+  <div ng-bind-html='model.address'></div>
+  <div ng-bind-html='model.lead.phone.number'></div>
+  <div ng-bind-html='model.lead.detail.email'></div>
+  <br>
+
+  <div>{{model.term.noteToCustomer}}</div><br>
+
+  <div><b>Scope of work:</b></div>
+  <div>
+      <div style='margin-bottom: 1em; border: 1px solid #e1e1e1;' ng-repeat='system in model.projects.details'>
+        <div style='padding: 5px;'>
+          <div>Area Name: {{system.name}}</div>
+          <div>System: {{system.system.name}}</div>
+          <div>Area: {{system.area}}&nbsp;sq/ft</div>
+          <div>Price: {{system.saleprice * system.area | currency}}</div>
+        </div>
+          <table width='100%'>
+              <tr>
+                  <th style='padding-left:5px; color: white; background: #818181' width='50%'>Color</th>
+                  <th style='padding-left:5px; color: white; background: #818181' width='50%'>Pattern</th>
+              </tr>
+              <tr ng-repeat='style in system.styles'>
+                  <td style='padding-left:5px;' width='50%'>{{style.color.name}}</td>
+                  <td style='padding-left:5px;' width='50%'>{{style.pattern.name}}</td>
+              </tr>
+          </table>
+      </div>
+      <div>{{model.term.scopeOfWork}}</div><br>
+  </div>
+
+
+  <div><b>Common conditions to be aware of</b></div>
+  <div>{{model.term.commonCondition}}</div><br>
+
+  <div><b>Total investment for this system installed</b></div>
+  <div>Total : {{Project.totalcost| currency}}</div><br>
+
+  <div><b>Down payment terms</b></div>
+  <div>{{model.term.downpaymentTerms}}</div><br>
+
+
+  <div style='width:100%; text-align: center'><img style='width: 80%;' ng-src='{{model.signature}}'></div><br>
+  <div style='width:100%; text-align: right'>{{model.date}}</div><br>
+
+  <div>{{model.term.note}}</div>
+
+  <div ng-bind-html="model.discountContent">
+  </div>
+
+  <div>{{model.term.conclusion}}</div><br>
+
+  <div>{{model.term.footer}}</div><br>
+
+</div>

@@ -1,0 +1,89 @@
+<div class="text-center" style="margin-top: 15px;  margin-left: 5px; margin-right: 5px;">
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-left btn-grey btn-block" ui-sref="index.changepassword">
+        Change Password
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-left btn-grey btn-block" ng-click="Logout()">
+        Log Out
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-left btn-grey btn-block" ui-sref="index.feedback">
+        Give Feedback
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-left btn-grey btn-block" ui-sref="index.subscribe">
+        Subscribe
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-left btn-grey btn-block" ui-sref="index.preferences">
+        Preferences
+      </button>
+    </div>
+  </div>
+
+  <div class="row" ng-show="IsInRoles(['administrator'])">
+    <div class="col-xs-12">
+      <button  type="button" class="btn btn-left btn-danger  btn-block"  ui-sref="index.contracttemplatelayouts">
+        Contract Layout
+      </button>
+    </div>
+  </div>
+
+  <div class="row" ng-show="IsInRoles(['concreteprotector','subscriber','administrator'])">
+    <div class="col-xs-12">
+      <button  type="button" class="btn btn-left btn-primary  btn-block" ui-sref="index.contracttemplates">
+        Contracts Templates
+      </button>
+    </div>
+  </div>
+
+  <div class="row" ng-show="IsInRoles(['concreteprotector','subscriber','administrator'])">
+    <div class="col-xs-12">
+      <button  type="button" class="btn btn-left btn-primary  btn-block"  ui-sref="index.team">
+        My Team
+      </button>
+    </div>
+</div>
+  <div class="row" ng-show="IsInRoles(['concreteprotector','subscriber','administrator'])">
+    <div class="col-xs-12">
+      <button  type="button" class="btn btn-left btn-primary  btn-block" ui-sref="index.systems">
+        Systems
+      </button>
+    </div>
+  </div>
+  <div class="row" ng-show="IsInRoles(['concreteprotector','administrator'])">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-left btn-primary  btn-block"  ui-sref="index.colors">
+        Colors
+      </button>
+    </div>
+  </div>
+  <div class="row" ng-show="IsInRoles(['concreteprotector','administrator'])">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-left btn-primary  btn-block"  ui-sref="index.ingredients">
+        Ingredients
+      </button>
+    </div>
+  </div>
+  <div class="row" ng-show="IsInRoles(['concreteprotector','administrator'])">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-left btn-primary  btn-block"  ui-sref="index.patterns">
+        Patterns
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div style=" background-color: #ffffff; padding-left: 10px; padding-right:10px; margin-top: 20px; margin-left: 5px; margin-right: 5px; width:auto; ">
+    <div class="row">
+        <div class="col-xs-12" style="text-align: left;" ng-bind-html="helper.text | sanitize"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="text-align: center; margin-bottom: 10px;">
+            <button ng-disabled="saving" type="submit" class="btn btn-success" ng-click="Save()">Save</button>
+            <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+    <div class="row" ng-repeat="ignore in ignores">
+        <div class="col-xs-12">
+            <input type="checkbox" ng-checked="ignore.checked" ng-click="checkIgnore(ignore)"
+                   name="checkbox_{{ignore.fid}}"
+                   id="checkbox_{{ignore.fid}}" value="value">
+            <label for="checkbox_{{ignore.fid}}">{{ignore.name}}</label>
+        </div>
+    </div>
+</div>

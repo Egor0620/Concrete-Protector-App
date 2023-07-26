@@ -1,0 +1,469 @@
+<div class="entity">
+  <form novalidate>
+    <div class="row" style="color: red;" ng-show="!!Model.errors.length">
+      <ul>
+        <li ng-repeat="error in Model.errors">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    <div ng-show="editingLead">
+      <div class="row">
+        <div class="col-xs-6 ">
+          First Name
+          <input class="form-control" type="text" ng-model="Model.person.firstname"
+                 placeholder="first name"></div>
+        <div class="col-xs-6">
+          Last Name
+          <input class="form-control" type="text" ng-model="Model.person.lastname"
+                 placeholder="last name"></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 ">
+          Active<br />
+          <input type="radio" id="activestatus" ng-model="Model.status" value="1">&nbsp;<label for="activestatus">true</label>
+          <input type="radio" id="inactivestatus" ng-model="Model.status" value="0">&nbsp;<label for="inactivestatus">false</label>
+        </div>
+        <div class="col-xs-6 ">
+          Company
+          <input class="form-control" type="text" maxlength="249" ng-model="Model.person.company" placeholder="company">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          Email
+          <input class="form-control" type="email" ng-model="Model.detail.email"
+                 placeholder="email">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">Best time to call?
+          <select style="width: 100%;"
+                  ng-model="Model.detail.besttimetocall"
+                  ng-options="rel.key as rel.time for rel in BestTimeToCalLOptions">
+            <option style="display:none" value=""></option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">How did you hear about us?
+          <textarea class="form-control" ng-model="Model.detail.hearaboutus"
+                    placeholder="how did you hear about us"
+                    style="width: 100%;" rows="2"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">How can we help?
+          <textarea class="form-control" ng-model="Model.detail.howcanwehelp"
+                    placeholder="how can we help"
+                    style="width: 100%;" rows="2"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+          <button type="button" ng-click="SaveLead(Model)" class="btn btn-success">Save</button>
+          <button type="button" ng-click="CancelEditLead(Model)" class="btn btn-default">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div ng-hide="editingLead">
+      <div class="row">
+        <div class="col-sm-6">
+          <button class="btn btn-primary btn-xs" style="margin-top: 10px;" ng-click="EditLead(Model)">
+            <span class="fa fa-pencil "></span>
+          </button>
+          Name {{Model.person.firstname}} {{Model.person.lastname}}
+        </div>
+        <div class="col-sm-6" ng-if="Model.person.company.length > 0">
+          Company {{Model.person.company}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6" ng-if="Model.detail.email.length > 0">
+          Email <a href="mailto:{{Model.detail.email}}">{{Model.detail.email}}</a>
+        </div>
+        <div class="col-sm-6" ng-if="Model.phone.number.length > 0">
+          Phone <a href="tel:{{Model.phone.number}}">{{Model.phone.number}}</a>
+        </div>
+      </div>
+
+      <div class="row" ng-hide="showDetail">
+        <div class="col-xs-12">
+          <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showDetail = !showDetail"><i
+            style="margin-top: 3px;" class=" pull-left fa fa-plus-circle"></i> Lead Detail</a>
+        </div>
+      </div>
+      <div class="row" ng-show="showDetail">
+        <div class="col-xs-12">
+          <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showDetail = !showDetail">
+            <i style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Lead Detail</a>
+        </div>
+      </div>
+      <div class="row" ng-show="showDetail">
+        <div class="col-xs-12">Best time to call?<br/>
+          {{Model.detail.besttimetocall}}
+        </div>
+      </div>
+      <div class="row" ng-show="showDetail">
+        <div class="col-xs-12">How did you hear about us?<br/>
+          {{Model.detail.hearaboutus}}
+        </div>
+      </div>
+      <div class="row" ng-show="showDetail">
+        <div class="col-xs-12">How can we help?<br/>
+          {{Model.detail.howcanwehelp}}
+        </div>
+      </div>
+
+
+      <div class="row" ng-hide="showEstimates">
+        <div class="col-xs-12">
+          <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showEstimates = !showEstimates"><i
+            style="margin-top: 3px;" class="fa fa-plus-circle pull-left"></i> Estimates</a>
+        </div>
+      </div>
+      <div class="row" ng-show="showEstimates">
+        <div class="col-xs-12">
+          <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showEstimates = !showEstimates"><i
+            style="margin-top: 3px;" class="fa fa-minus-circle pull-left"></i> Estimates</a>
+        </div>
+      </div>
+      <div class="row" ng-show="showEstimates">
+        <div class="col-xs-12">
+          <a class="btn btn-primary btn-sm" ui-sref="index.project({leadid:leadid})" style="margin-top: 2px;">
+            <i style="margin-top: 3px;"  class="pull-left fa fa-plus"></i> New Estimate</a>
+        </div>
+      </div>
+      <div class="row" ng-show="showEstimates">
+        <div class="col-xs-12">
+          <table style="background-color: white;" width="100%">
+            <thead>
+            <tr style="border-bottom: 1px solid gray;">
+              <th>&nbsp;&nbsp;&nbsp;<a class="blueish" ng-click="predicate = 'added'; reverse=!reverse">Date Added</a>
+              </th>
+              <th><a class="blueish" ng-click="predicate = 'totalarea'; reverse=!reverse">Area sq/ft</a></th>
+              <th><a class="blueish" ng-click="predicate = 'totalcost'; reverse=!reverse">$</a></th>
+            </tr>
+            </thead>
+            <tbody style="border-bottom: 1px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+            <tr ui-sref="index.project({leadid: project.leadid, projectid : project.id})" class="space2" style="cursor: pointer;"
+                ng-class-odd="'oddLead'" ng-class-even="'evenLead'"
+                ng-repeat="project in Estimates  | orderBy:predicate:reverse">
+              <td>
+                &nbsp;<i class="fa fa-pencil"></i>
+                {{project.added | date:"MM/dd/yyyy"}}
+              </td>
+              <td>
+                {{project.totalarea}}
+              </td>
+              <td>
+                {{project.totalcost}}
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <span ng-show="Current.length > 0">
+    <div class="row" ng-hide="showCurrentProjects">
+      <div class="col-xs-12">
+        <a class="btn  btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showCurrentProjects = !showCurrentProjects"><i
+          style="margin-top: 3px;" class="fa fa-plus-circle pull-left"></i> Current Projects</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showCurrentProjects">
+      <div class="col-xs-12">
+        <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showCurrentProjects = !showCurrentProjects"><i
+          style="margin-top: 3px;" class="fa fa-minus-circle pull-left"></i> Current Projects</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showCurrentProjects">
+      <div class="col-xs-12">
+        <table style="background-color: white;" width="100%">
+          <thead>
+          <tr style="border-bottom: 1px solid gray;">
+            <th>&nbsp;&nbsp;&nbsp;<a class="blueish" ng-click="predicate = 'added'; reverse=!reverse">Install Date</a>
+            </th>
+            <th><a class="blueish" ng-click="predicate = 'totalarea'; reverse=!reverse">Area sq/ft</a></th>
+            <th><a class="blueish" ng-click="predicate = 'totalcost'; reverse=!reverse">$</a></th>
+          </tr>
+          </thead>
+          <tbody style="border-bottom: 1px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+          <tr ui-sref="index.project({leadid: project.leadid, projectid : project.id})" class="space2" style="cursor: pointer;"
+              ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+              ng-repeat="project in Current  | orderBy:predicate:reverse">
+            <td>
+              &nbsp;<i class="fa fa-pencil"></i>
+              {{project.install | date:"MM/dd/yyyy"}}
+            </td>
+            <td>
+              {{project.totalarea}}
+            </td>
+            <td>
+              {{project.totalcost}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</span>
+      <span ng-show="Complete.length > 0">
+    <div class="row" ng-hide="showCompleteProjects">
+      <div class="col-xs-12">
+        <a class="btn  btn-left btn-primary btn-sm" style="width: 100%;"
+           ng-click="showCompleteProjects = !showCompleteProjects"><i
+          style="margin-top: 3px;" class="fa fa-plus-circle pull-left"></i> Complete Projects</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showCompleteProjects">
+      <div class="col-xs-12">
+        <a class="btn  btn-left btn-warning btn-sm" style="width: 100%;"
+           ng-click="showCompleteProjects = !showCompleteProjects"><i
+          style="margin-top: 3px;" class="fa fa-minus-circle pull-left"></i> Complete Projects</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showCompleteProjects">
+      <div class="col-xs-12">
+        <table style="background-color: white;" width="100%">
+          <thead>
+          <tr style="border-bottom: 1px solid gray;">
+            <th>&nbsp;&nbsp;&nbsp;<a class="blueish" ng-click="predicate = 'added'; reverse=!reverse">Completed Date</a>
+            </th>
+            <th><a class="blueish" ng-click="predicate = 'totalarea'; reverse=!reverse">Area sq/ft</a></th>
+            <th><a class="blueish" ng-click="predicate = 'totalcost'; reverse=!reverse">$</a></th>
+          </tr>
+          </thead>
+          <tbody style="border-bottom: 1px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+          <tr ui-sref="index.project({leadid: project.leadid, projectid : project.id})" class="space2" style="cursor: pointer;"
+              ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+              ng-repeat="project in Complete  | orderBy:predicate:reverse">
+            <td>
+              &nbsp;<i class="fa fa-pencil"></i>
+              {{project.completed | date:"MM/dd/yyyy"}}
+            </td>
+            <td>
+              {{project.totalarea}}
+            </td>
+            <td>
+              {{project.totalcost}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</span>
+
+      <div ng-show="editingPhone">
+        <div class="row" style="color: red;" ng-show="!!PhoneModel.errors.length">
+          <ul>
+            <li ng-repeat="error in PhoneModel.errors">
+              {{error}}
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            Phone Number
+            <input class="form-control" type="text" ng-model="PhoneModel.number"
+                   placeholder="number">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            Phone Type
+            <select style="width: 100%;"
+                    ng-model="PhoneModel.type"
+                    ng-options="rel.phonetype as rel.phonetype for rel in PhoneTypes">
+              <option style="display:none" value=""></option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <input type="checkbox" ng-model="PhoneModel.primary" name="primaryphone"
+                   id="primaryphone" value="value">
+            <label for="primaryphone">primary</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+            <button type="button" ng-click="SavePhone()" class="btn btn-success">Save</button>
+            <button type="button" ng-click="CancelEditPhone()" class="btn btn-default">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div ng-hide="editingPhone">
+        <div class="row" ng-hide="showPhones">
+          <div class="col-xs-12">
+            <a class="btn  btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showPhones = !showPhones"><i
+              style="margin-top: 3px;" class="fa fa-plus-circle pull-left"></i> Phones</a>
+          </div>
+        </div>
+        <div class="row" ng-show="showPhones">
+          <div class="col-xs-12">
+            <a class="btn  btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showPhones = !showPhones"><i
+              style="margin-top: 3px;" class="fa fa-minus-circle pull-left"></i> Phones</a>
+          </div>
+        </div>
+        <div class="row" ng-show="showPhones">
+          <div class="col-xs-12">
+            <button type="button" ng-click="NewPhone()" class="btn btn-primary">
+              <i style="margin-top: 3px;" class="pull-left fa fa-plus"></i>New Phone
+            </button>
+
+          </div>
+        </div>
+        <div class="row" ng-show="showPhones">
+          <div class="col-xs-12">
+            <table style="background-color: white;" width="100%">
+              <thead>
+              <tr style="border-bottom: 1px solid gray;">
+                <th>&nbsp;&nbsp;&nbsp;<a class="blueish" ng-click="predicate = 'number'; reverse=!reverse">Number</a>
+                </th>
+                <th><a class="blueish" ng-click="predicate = 'primary'; reverse=!reverse">Primary</a></th>
+                <th><a class="blueish" ng-click="predicate = 'type'; reverse=!reverse">Type</a></th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody style="border-bottom: 1px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+              <tr ng-click="EditPhone(phone, $index)" class="space2" style="cursor: pointer;"
+                  ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+                  ng-repeat="phone in Phones  | orderBy:predicate:reverse">
+                <td>
+                  &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i>
+                  {{phone.number}}
+                </td>
+                <td>
+                  {{phone.primary}}
+                </td>
+                <td>
+                  {{phone.type}}
+                </td>
+                <td>
+                  <a class="white-text" href="tel:{{phone.number}}">call</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <div ng-show="editingAddress">
+        <div class="row" style="color: red;" ng-show="!!AddressModel.errors.length">
+          <ul>
+            <li ng-repeat="error in AddressModel.errors">
+              {{error}}
+            </li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            Address
+            <input class="form-control" type="text" ng-model="AddressModel.address1"
+                   placeholder="address">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <input class="form-control" type="text" ng-model="AddressModel.address2">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            City
+            <input class="form-control" type="text" ng-model="AddressModel.city"
+                   placeholder="city">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            State
+            <select style="width: 100%;"
+                    ng-model="AddressModel.state"
+                    ng-options="rel.id as rel.state for rel in States">
+              <option style="display:none" value=""></option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            Zip
+            <input class="form-control" type="text" ng-model="AddressModel.zip"
+                   placeholder="zip">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            Type
+            <select style="width: 100%;"
+                    ng-model="AddressModel.type"
+                    ng-options="rel.addresstype as rel.addresstype for rel in AddressTypes">
+              <option style="display:none" value=""></option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <input type="checkbox" ng-model="AddressModel.primary" name="primaryaddress"
+                   id="primaryaddress" value="value">
+            <label for="primaryaddress">Primary</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+            <button type="button" ng-click="SaveAddress()" class="btn btn-success">Save</button>
+            <button type="button" ng-click="CancelEditAddress()" class="btn btn-default">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div ng-hide="editingAddress">
+        <div class="row" ng-hide="showAddress">
+          <div class="col-xs-12">
+            <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showAddress = !showAddress"><i
+              style="margin-top: 3px;" class="fa fa-plus-circle pull-left"></i> Addresses</a>
+          </div>
+        </div>
+        <div class="row" ng-show="showAddress">
+          <div class="col-xs-12">
+            <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showAddress = !showAddress"><i
+              style="margin-top: 3px;" class="fa fa-minus-circle pull-left"></i> Addresses</a>
+          </div>
+        </div>
+        <div class="row" ng-show="showAddress">
+          <div class="col-xs-12">
+            <button type="button" ng-click="NewAddress()" class="btn btn-primary">
+              <i style="margin-top: 3px;" class="pull-left fa fa-plus"></i>New Address
+            </button>
+          </div>
+        </div>
+        <div class="row" ng-show="showAddress">
+          <div class="col-xs-12">
+            <table style="background-color: white;" width="100%">
+              <tbody style="border-bottom: 1px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+              <tr ng-click="EditAddress(address, $index)" class="space2" style="cursor: pointer;"
+                  ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+                  ng-repeat="address in Addresses  | orderBy:predicate:reverse">
+                <td>
+                  &nbsp;&nbsp;&nbsp;<i class="fa fa-pencil"></i>&nbsp;&nbsp;{{address.address1}}&nbsp;&nbsp;{{address.address1}}
+                  <br>
+                  &nbsp;&nbsp;{{address.city}} {{address.state}}, {{address.zip}} primary: {{address.primary}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+          <a ng-click="Cancel()" class="btn btn-default"><i class="fa fa-arrow-circle-left fa-lg"></i> </a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

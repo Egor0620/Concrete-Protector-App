@@ -1,0 +1,168 @@
+<div class="contract-form" ng-init="init();" class="entity">
+    <div class="row" style="color: red;" ng-show="!!model.errors.length">
+        <ul>
+            <li ng-repeat="error in model.errors">
+                {{error}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="row"><div class="col-xs-12">
+            Contract Template<br/>
+            <select style="width: 100%;"
+                    ng-model="TemplateId"
+                    ng-change="TemplateChange(TemplateId)"
+                    ng-options="rel.id as rel.name for rel in ContractTemplates">
+            </select>
+    </div></div>
+
+    <div class="row">
+        <div class='col-xs-12'>
+            <div class='lbl-logo' ng-click='onClickLogo();'>
+                <span >LOGO&nbsp;&nbsp;&nbsp;</span><i class='fa fa-camera'></i>
+            </div>
+            <div class='logo-wrapper' ng-click='onClickLogo();'>
+                <div class='img-logo'>
+                    <img ng-src='{{model.logo}}'>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class='title'>
+        <input class="row" ng-model='model.title' placeholder="title">
+    </div>
+
+
+    <div class='note-to-customer'>
+
+    </div>
+
+
+    <div class='contract'>
+        <h3>Customer contact information</h3>
+        <div>
+            <div class='customer-contact-information'>
+                <input placeholder="Name" ng-model='model.lead.person.name'>
+                <input placeholder="Address" ng-model='model.address'>
+                <input placeholder="Phone number" ng-model='model.lead.phone.number'>
+                <input placeholder="Email" ng-model='model.lead.detail.email'>
+            </div>
+        </div>
+        <h3>Note to customer</h3>
+        <div>
+            <div class='note-to-customer'>
+                <textarea ng-model='model.term.noteToCustomer' placeholder="Note to customer"></textarea>
+            </div>
+        </div>
+        <h3>Scope Of Work</h3>
+        <div>
+            <div class='scope-of-work'>
+                <div class='system' ng-repeat='system in model.projects.details'>
+                    <div>Area Name: {{system.name}}</div>
+                    <div>System: {{system.system.name}}</div>
+                    <div>Area: {{system.area}}&nbsp;sq/ft</div>
+                    <div>Price: {{system.saleprice * system.area | currency}}</div>
+                    <table width='100%'>
+                        <tr>
+                            <th width='50%'>Color</th>
+                            <th width='50%'>Pattern</th>
+                        </tr>
+                        <tr ng-repeat='style in system.styles'>
+                            <td width='50%'>{{style.color.name}}</td>
+                            <td width='50%'>{{style.pattern.name}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class='common-condition'>
+                    <textarea ng-model='model.term.scopeOfWork' placeholder="Scope of work"></textarea>
+                </div>
+            </div>
+        </div>
+        <h3>Common conditions to be aware of</h3>
+        <div>
+            <div class='common-condition'>
+                <textarea ng-model='model.term.commonCondition' placeholder="Common condition to be aware of"></textarea>
+            </div>
+        </div>
+        <h3>Total investment for this system installed</h3>
+        <div>
+            <div class='total-investment'>
+                Total : {{Project.totalcost| currency}}
+            </div>
+        </div>
+        <h3>Down payment terms</h3>
+        <div>
+            <div class='downpayment-terms'>
+                <textarea ng-model='model.term.downpaymentTerms' placeholder="Down payment terms"></textarea>
+            </div>
+        </div>
+        <h3>Date by signature line</h3>
+        <div>
+            <div class='dateby-signature'>
+                <div id='signature'></div>
+                <br>
+                <div class='date' ng-bind-html='model.date'></div>
+            </div>
+        </div>
+        <h3>Note</h3>
+        <div>
+            <div class='note'>
+                <textarea ng-model='model.term.note' placeholder="Note"></textarea>
+
+              <br>
+
+              <input type="checkbox" ng-change="onChangeDiscountMode(0);" ng-model="model.enableDiscountByPercentage" name="discountByPercentage" id="discountByPercentage" value="value">
+              <label for="discountByPercentage">Discount by percentage ( % )</label>&nbsp;
+              <br>
+              <div ng-show="model.enableDiscountByPercentage">
+                <input class="col-xs-3 form-control" type="text" ng-model="model.discountPercentage" placeholder="discount %">
+                <br>
+                <span>Net Price&nbsp;{{Project.totalcost - (Project.totalcost * (model.discountPercentage/100)) | currency}}</span>
+              </div>
+
+              <br>
+
+
+              <input type="checkbox" ng-change="onChangeDiscountMode(1);" ng-model="model.enableDiscountByAmount" name="discountByAmount" id="discountByAmount" value="value">
+              <label for="discountByAmount">Discount by amount ( $ )</label>&nbsp;
+              <br>
+              <div ng-show="model.enableDiscountByAmount">
+                <input class="col-xs-3 form-control" type="text" ng-model="model.discountAmount" placeholder="discount $">
+                <br>
+                <span>Net Price&nbsp;{{Project.totalcost - model.discountAmount | currency}}</span>
+              </div>
+
+            </div>
+        </div>
+        <h3>Conclusion to customer</h3>
+        <div>
+            <div class='conclusion-to-customer'>
+                <textarea ng-model='model.term.conclusion' placeholder="Conclusion to customer"></textarea>
+            </div>
+        </div>
+        <h3>Footer</h3>
+        <div>
+            <div class='contract-footer'>
+                <textarea ng-model='model.term.footer' placeholder="footer"></textarea>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="hidden col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+            <a ng-click="save()" class="btn btn-success">Save</a>
+            <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+        </div>
+        <div style='text-align: center;'>
+            <a ng-click="sendAsEmail()" class="btn btn-success">Send as email</a>
+        </div>
+    </div>
+
+  <div ng-show="model.showPreview" class="contract_preview">
+  </div>
+
+  <div class='bottom-space' style='display: none; height: 350px;'>
+  </div>
+</div>

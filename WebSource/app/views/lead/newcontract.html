@@ -1,0 +1,114 @@
+<div class="entity">
+    <form novalidate>
+        <div class="row" style="color: red;" ng-show="!!Model.errors.length">
+            <ul>
+                <li ng-repeat="error in Model.errors">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                Contract Template<br/>
+                <select style="width: 100%;"
+                        ng-model="TemplateId"
+                        ng-change="TemplateChange(TemplateId)"
+                        ng-options="rel.id as rel.name for rel in ContractTemplates">
+                    <option style="display:none" value=""></option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <div class="row" ng-hide="showDetails">
+        <div class="col-xs-12">
+            <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showDetails = !showDetails"><i
+                    style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Project Details</a>
+        </div>
+    </div>
+    <div class="row" ng-show="showDetails">
+        <div class="col-xs-12">
+            <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showDetails = !showDetails"><i
+                    style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Project Details</a>
+        </div>
+    </div>
+    <div class="row" ng-show="showDetails">
+        <div class="col-xs-4"><a class="blueish" ng-click="predicate = 'name'; reverse=!reverse">Name</a></div>
+        <div class="col-xs-4"><a class="blueish" ng-click="predicate = 'area'; reverse=!reverse">Area</a></div>
+        <div class="col-xs-4"><a class="blueish" ng-click="predicate = 'saleprice'; reverse=!reverse">Price</a></div>
+    </div>
+    <div ng-repeat="detail in Project.details  | orderBy:predicate:reverse" ng-click="showStyles = !showStyles"
+         class="row striperow pointer" ng-show="showDetails">
+        <div class="col-xs-4">
+            <a class="btn stripe-btn-link-nolink btn-md"><i
+                    style="margin-top: 3px;" ng-class="showStyles && 'fa-minus-circle' || 'fa-plus-circle'"
+                    class="fa striperowicon"></i></a>
+            &nbsp;{{detail.name}}
+        </div>
+        <div class="col-xs-4">&nbsp;{{detail.area}}</div>
+        <div class="col-xs-4">&nbsp;{{detail.saleprice}}</div>
+        <div ng-show="showStyles" class="col-xs-10 col-xs-offset-1"
+             style=" margin-bottom: 5px;background-color: white; color: black; border: solid black 1px;">
+            <div class="row" style="border-bottom: solid black 1px" ng-show="showStyles">
+                <div class="col-xs-4">Ingredient</div>
+                <div class="col-xs-4">Color</div>
+                <div class="col-xs-4">Pattern</div>
+            </div>
+            <div ng-show="showStyles" ng-repeat="style in detail.styles" class="row">
+                <div class="col-xs-4">&nbsp;{{style.ingredient.name}}</div>
+                <div class="col-xs-4">&nbsp;{{style.color.name}}</div>
+                <div class="col-xs-4">&nbsp;{{style.pattern.name}}</div>
+            </div>
+        </div>
+    </div>
+    <!-- notes start -->
+    <div class="row" ng-hide="showNotes">
+        <div class="col-xs-12">
+            <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showNotes = !showNotes"><i
+                    style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Notes</a>
+        </div>
+    </div>
+    <div class="row" ng-show="showNotes">
+        <div class="col-xs-12">
+            <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showNotes = !showNotes"><i
+                    style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Notes</a>
+        </div>
+    </div>
+    <div class="row" ng-show="showNotes">
+        <div class="col-xs-8"><a class="blueish" ng-click="npredicate = 'body'; reverse=!reverse">Note</a></div>
+        <div class="col-xs-4"><a class="blueish" ng-click="npredicate = 'added'; reverse=!reverse">Date</a></div>
+    </div>
+    <div ng-repeat="note in Project.notes  | orderBy:npredicate:reverse" class="row striperow" ng-show="showNotes">
+        <div class="col-xs-8">&nbsp;{{note.body}}</div>
+        <div class="col-xs-4">&nbsp;{{note.added | date}}</div>
+    </div>
+    <!-- notes end -->
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="col-xs-6 pull-left">Total&nbsp;{{Project.totalcost| currency}}</span>
+        </div>
+        </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="col-xs-6 pull-left">Discount % <input class="col-xs-3 form-control" type="text" ng-model="Model.discount" placeholder="discount %"></span>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="col-xs-6 pull-left">Net Price&nbsp;{{Project.totalcost - (Project.totalcost * (Model.discount/100)) | currency}}</span>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="col-xs-4 pull-left">Signature</span><br/>
+
+            <div data-j-signature="form.signature" data-pen-color="#009bff" data-line-color="#oooooo"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+            <a ng-click="Save()" class="btn btn-success">Save</a>
+            <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+        </div>
+    </div>
+</div>

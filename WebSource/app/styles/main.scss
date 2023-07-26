@@ -1,0 +1,382 @@
+
+@font-face {
+  font-family: Oxygen;
+  src: url('../fonts/Oxygen-Regular.woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* Space out content a bit */
+body {
+  //background-color: #000000;
+  background-color: #ffffff;
+  //background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAE3CAYAAACAdpCOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAS1JREFUeNrsVkFuwzAMk9qedtoHetp5P9sj+7GazZBYdk1LUYPetgBFhZiUSNouqiKC5SMn2Z7/Ynku1++ftfj4/FoLXXOSy0mt2MDnyqpLrY+xVGVgqfUxegVLw1Afv7M1NIyoD24Nh6VefO3TMGRQCWMu2I7AGdHeCNE7O/DAJDWDicBCvgQEHvUELgLMJHC4ITQwY7bvnEFgPBIAdu8FKEwEIwwM2ZMR0clXpwclHy/8ECSQEU3fPwBs0PfV6SHMJGdg8JXYU7bMnWf77rIWqTq6KGW4REYvBc8b15ZAdBZfxu1u4MkShdnJKF5iVWFwxjrNQHrWJFVamryhoGIZ8vrQzKxg6ARzv5fEiSrpn52M+GNSp6wDs5Iy3tLwWKF/+J/ecivl9ls8BBgAav0IhiQcZVgAAAAASUVORK5CYII=');
+  background-repeat:repeat-x;
+  font-family: 'Oxygen', sans-serif;
+ // line-height: 1.22;
+}
+
+.cpHeader{
+  background-color: #000000;
+  padding-top: 5px;
+  padding-bottom: 2px;
+  margin-top:-5px;
+  height: 37px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Oxygen", sans-serif;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 1.5px;
+  color: inherit;
+}
+.nav > li > a{
+  padding: 8px 8px;
+}
+//
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.row{
+  margin-bottom: 5px;
+  //margin-left: -20px;
+ // margin-right: -20px;
+}
+.container{
+ // padding-right: 0px;
+ // padding-left: 0px;
+ // margin-right: 0px;
+ // margin-left: 0px;
+
+}
+.container-fluid{
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.white-text{
+  color: #fff;
+}
+.black-text{
+  color: #000;
+}
+.grey-text{
+  color: #ccc;
+}
+
+.green-text{
+  color: #00FF00;
+}
+
+.btn-link-nolink{
+  color: #333333;
+  margin-left: -15px;
+  margin-top: -12px;
+  margin-bottom: -10px;
+}
+
+.row-no-bottom-margin{
+  margin-bottom: 0px;
+}
+.row-20-top-margin{
+  margin-top: -20px;
+}
+
+.fa-75{
+  font-size: 75%;
+  padding-bottom: 4px;
+  display: inline-table;
+  vertical-align: bottom;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+
+
+/* Supporting marketing content */
+.marketing {
+    margin: 40px 0;
+}
+
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+.oddrow{
+  background: #e3e3e3;
+}
+
+.tabbody{
+  padding: 15px;
+  background-color: #fff;
+}
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .container {
+       // max-width: 730px;
+    }
+
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    /* Space out the masthead */
+    .header {
+        margin-bottom: 30px;
+    }
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+        border-bottom: 0;
+    }
+}
+
+
+tr.space2 > td
+{
+  padding-bottom: 2px;
+  padding-top: 2px;
+}
+
+.cpOddRow{
+  color: #ffffff;
+  background-color: #183451;
+  cursor: pointer;
+  vertical-align: top;
+}
+.cpEvenRow{
+  background-color: #c8c9cd;
+  color: #000;
+  cursor: pointer;
+  vertical-align: top;
+}
+
+.cpOddRow .cpIconBack{
+  color: #b3b4b8;
+}
+.cpEvenRow .cpIconBack{
+  color: #b3b4b8;
+}
+
+.striperow:nth-of-type(odd){
+  color: #ffffff;
+  background-color: #183451;
+  vertical-align: top;
+  margin-top: -5px;
+}
+.striperow:nth-of-type(even){
+  background-color: #c8c9cd;
+  color: #000;
+  vertical-align: top;
+  margin-top: -5px;
+}
+
+.stripe-btn-link-nolink{
+  margin-left: -15px;
+  margin-top: -12px;
+  margin-bottom: -10px;
+}
+
+.striperowicon:nth-of-type(1){
+  color: white;
+}
+.pointer{
+  cursor: pointer;
+}
+
+.read-access{
+  color: #000000;
+}
+.full-access{
+  color: #00ffa7;;
+}
+
+/*
+.oddLead{
+  color: #ffffff;
+  background-color: #28447d;
+  cursor: pointer;
+}
+.evenLead{
+  background-color: #116c7d;
+  color: #fff;
+  cursor: pointer;
+}
+*/
+a.white, a.white:hover, a.white:active, a.white:visited {
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.blueish, a.blueish:hover, a.blueish:active, a.blueish:visited {
+  color: #337ab7;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.editing{
+  background-color: #116c7d;
+  padding: 2px;
+  margin-bottom: 5px;
+  margin-top: -3px;
+}
+
+.entity{
+  background-color: #ffffff;
+  padding-left: 10px;
+  padding-right:10px;
+  margin-top: 2px;
+  //margin-left: 5px;
+  //margin-right: 5px;
+  width:auto;
+}
+
+textarea {
+  resize: none;
+}
+
+.btn-grey {
+  color: #000000;
+  background-color: #CCCCCC;
+  border-color: #BFBFBF;
+}
+
+.btn-grey:hover,
+.btn-grey:focus,
+.btn-grey:active,
+.btn-grey.active,
+.open .dropdown-toggle.btn-grey {
+  color: #000000;
+  background-color: #9E9E9E;
+  border-color: #BFBFBF;
+}
+
+.btn-grey:active,
+.btn-grey.active,
+.open .dropdown-toggle.btn-grey {
+  background-image: none;
+}
+
+.btn-grey.disabled,
+.btn-grey[disabled],
+fieldset[disabled] .btn-grey,
+.btn-grey.disabled:hover,
+.btn-grey[disabled]:hover,
+fieldset[disabled] .btn-grey:hover,
+.btn-grey.disabled:focus,
+.btn-grey[disabled]:focus,
+fieldset[disabled] .btn-grey:focus,
+.btn-grey.disabled:active,
+.btn-grey[disabled]:active,
+fieldset[disabled] .btn-grey:active,
+.btn-grey.disabled.active,
+.btn-grey[disabled].active,
+fieldset[disabled] .btn-grey.active {
+  background-color: #CCCCCC;
+  border-color: #BFBFBF;
+}
+
+.btn-grey .badge {
+  color: #CCCCCC;
+  background-color: #000000;
+}
+
+.btn-left{
+  text-align: left;
+}
+
+.ng-modal-overlay {
+  /* A dark translucent div that covers the whole screen */
+  position:absolute;
+  z-index:9999;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:#000000;
+  opacity: 0.8;
+}
+.ng-modal-dialog {
+  /* A centered div above the overlay with a box shadow. */
+  z-index:10000;
+  position: absolute;
+  width: 50%; /* Default */
+
+  /* Center the dialog */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+
+  background-color: #fff;
+  box-shadow: 4px 4px 80px #000;
+}
+.ng-modal-dialog-content {
+  padding:10px;
+  text-align: left;
+}
+.ng-modal-close {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 120%;
+  display: inline-block;
+  font-weight: bold;
+  font-family: 'arial', 'sans-serif';
+}

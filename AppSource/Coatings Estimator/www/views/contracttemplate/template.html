@@ -1,0 +1,81 @@
+<div class='contract-form' style=" background-color: #ffffff; padding-left: 10px; padding-right:10px; margin-top: 20px; margin-left: 5px; margin-right: 5px; width:auto; ">
+    <form>
+        <input type="hidden" value="Model.version">
+
+        <div class="row" style="color: red;" ng-show="!!Model.errors.length">
+            <ul>
+                <li ng-repeat="error in Model.errors">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+        <div class="row"><div class="col-xs-12">Name<br/><input class="form-control" type="text" ng-model="Model.name" placeholder="name"></div></div>
+
+        <div class='contract'>
+            <h3>Logo</h3>
+            <div>
+                <div class="row">
+                    <div class="col-sm-12" style="text-align: center;">
+                        <img  ng-show="Model.header.data.length > 1" style="width: 100%; padding: 10px;" ng-src="{{Model.header.data}}"/><br ng-show="Model.header.data.length > 1" />
+                        <button type="button" class="btn btn-success" ng-click="GetImage(Model.header, 0)"><i class="fa fa-camera"></i></button>
+                        <button class='hidden' type="button" class="btn btn-success" ng-click="GetImage(Model.header, 1)"><i class="fa fa-file-image-o"></i></button>
+                        <button ng-show="Model.header.data.length > 1" type="button" class="btn btn-danger" ng-click="RemoveImage(Model, Model.header)"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+            <h3>Note to customer</h3>
+            <div>
+                <div class='note-to-customer'>
+                    <textarea ng-model='Model.term.noteToCustomer' placeholder="Note to customer"></textarea>
+                </div>
+            </div>
+            <h3>Scope of work</h3>
+            <div>
+                <div class='scope-of-work'>
+                    <textarea ng-model='Model.term.scopeOfWork' placeholder="Scope of work"></textarea>
+                </div>
+            </div>
+            <h3>Common conditions to be aware of</h3>
+            <div>
+                <div class='common-condition'>
+                    <textarea ng-model='Model.term.commonCondition' placeholder="Common condition to be aware of"></textarea>
+                </div>
+            </div>
+            <h3>Down payment terms</h3>
+            <div>
+                <div class='downpayment-terms'>
+                    <textarea ng-model='Model.term.downpaymentTerms' placeholder="Down payment terms"></textarea>
+                </div>
+            </div>
+            <h3>Note</h3>
+            <div>
+                <div class='note'>
+                    <textarea ng-model='Model.term.note' placeholder="Note"></textarea>
+                </div>
+            </div>
+            <h3>Conclusion to customer</h3>
+            <div>
+                <div class='conclusion-to-customer'>
+                    <textarea ng-model='Model.term.conclusion' placeholder="Conclusion to customer"></textarea>
+                </div>
+            </div>
+            <h3>Footer</h3>
+            <div>
+                <div class='contract-footer'>
+                    <textarea ng-model='Model.term.footer' placeholder="footer"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Image End -->
+
+        <div class="row">
+            <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+                <button ng-disabled="saving" type="submit" class="btn btn-success" ng-click="Save(Model)">Save</button>
+                <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+                <!--<button ng-disabled="saving" type="submit" class="btn btn-primary" ng-click="Preview(Model)">Preview</button>-->
+              <button ng-hide="IsNew" type="button" class="btn btn-danger" ng-click="Remove(Model.id)">Delete</button>
+            </div>
+        </div>
+    </form>
+</div>

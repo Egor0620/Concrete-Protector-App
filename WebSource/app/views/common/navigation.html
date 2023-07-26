@@ -1,0 +1,55 @@
+<div class="text-center" style="margin-top: 40px; width:100%;">
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-primary" style="width: 100px; height: 100px;" ui-sref="index.leads({status: 1})">
+                <span class="fa fa-user fa-3x"></span><br>Leads
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-warning" style="width: 100px; height: 100px;"
+                    ui-sref="index.projects({status:1,time:'estimate' })"><span class="fa fa-newspaper-o fa-3x"></span><br>Estimates
+            </button>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 12px;">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-success" style="width: 100px; height: 100px;"
+                    ui-sref="index.projects({status:1,time:'current' })"><span
+                    class="fa fa-briefcase fa-3x"></span><br>Current<br>Projects
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-danger" style="width: 100px; height: 100px;"
+                    ui-sref="index.projects({status:1,time:'complete' })"><span
+                    class="fa fa-history fa-3x"></span><br>Complete<br>Projects
+            </button>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 12px;">
+        <div class="col-xs-4 col-xs-offset-4 black-text" style="border-bottom: 1px solid #ccc;">
+            Inactive
+        </div>
+    </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button type="button" class="btn btn-grey" style="width: 80px; height: 80px;"
+              ui-sref="index.leads({status:0})"><span class="fa fa-user fa-2x"></span>
+      </button>
+      &nbsp;&nbsp;
+      <button type="button" class="btn btn-grey" style="width: 80px; height: 80px;"
+              ui-sref="index.projects({status:0,time:'estimate' })"><span
+        class="fa fa-newspaper-o fa-2x"></span>
+      </button>
+    </div>
+  </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <button type="button" class="btn btn-grey" style="width: 80px; height: 80px;"
+                    ui-sref="index.projects({status:0,time:'current' })"><span class="fa fa-briefcase fa-2x"></span>
+            </button>
+            &nbsp;&nbsp;
+            <button type="button" class="btn btn-grey" style="width: 80px; height: 80px;"
+                    ui-sref="index.projects({status:0,time:'complete' })"><span
+                    class="fa fa-history fa-2x"></span>
+            </button>
+        </div>
+    </div>
+</div>

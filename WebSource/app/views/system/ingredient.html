@@ -1,0 +1,76 @@
+<div style=" background-color: #ffffff; padding-left: 10px; padding-right:10px; margin-top: 20px; margin-left: 5px; margin-right: 5px; width:auto; ">
+  <form novalidate >
+    <input type="hidden" value="Model.version">
+    <div class="row" style="color: red;" ng-show="!!Model.errors.length">
+      <ul>
+        <li ng-repeat="error in Model.errors">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        Name<br />
+        <input class="form-control" type="text" ng-model="Model.name" placeholder="name">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        Coverage Area sq/ft<br />
+        <input class="form-control" type="number" ng-model="Model.coverage" placeholder="coverage">
+      </div>
+      <div class="col-xs-6">
+        Purchase Price<br />
+        <input class="form-control" type="number" step="any" min="0" ng-model="Model.purchaseprice" placeholder="coverage price">
+      </div>
+    </div>
+
+    <div class="row" ng-hide="showColors">
+      <div class="col-xs-12">
+        <a class="btn btn-primary btn-left btn-sm" style="width: 100%;" ng-click="showColors = !showColors"><i
+          style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Colors ({{ColorsCount}})</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showColors">
+      <div class="col-xs-12" >
+        <a class="btn btn-warning btn-left btn-sm" style="width: 100%;" ng-click="showColors = !showColors"><i
+          style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Colors ({{ColorsCount}})</a>
+      </div>
+    </div>
+
+    <div class="row" ng-show="showColors" ng-repeat="color in Colors">
+      <div class="col-xs-12">
+      <input type="checkbox"  ng-checked="color.checked" ng-click="checkColor(color.id)" name="checkbox_{{color.id}}" id="checkbox_{{color.id}}" value="value">
+      <label for="checkbox_{{color.id}}">{{color.name}}</label>
+        </div>
+    </div>
+
+
+    <div class="row" ng-hide="showPatterns">
+      <div class="col-xs-12">
+        <a class="btn btn-primary btn-left btn-sm" style="width: 100%;  margin-bottom: 10px;" ng-click="showPatterns = !showPatterns"><i
+          style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Patterns ({{PatternsCount}})</a>
+      </div>
+    </div>
+    <div class="row" ng-show="showPatterns" >
+      <div class="col-xs-12" >
+        <a class="btn btn-warning btn-left btn-sm" style="width: 100%;" ng-click="showPatterns = !showPatterns"><i
+          style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Patterns ({{PatternsCount}})</a>
+      </div>
+    </div>
+
+    <div class="row" ng-show="showPatterns" ng-repeat="pattern in Patterns" >
+      <div class="col-xs-12">
+        <input type="checkbox"  ng-checked="pattern.checked" ng-click="checkPattern(pattern.id)" name="checkbox_{{pattern.id}}" id="checkbox_{{pattern.id}}" value="value">
+        <label for="checkbox_{{pattern.id}}">{{pattern.name}}</label>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+        <button ng-disabled="saving"  type="submit" class="btn btn-success" ng-click="Save(Model)">Save</button>
+        <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+      </div>
+    </div>
+
+  </form>
+</div>

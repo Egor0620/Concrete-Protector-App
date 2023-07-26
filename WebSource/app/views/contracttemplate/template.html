@@ -1,0 +1,108 @@
+<div style=" background-color: #ffffff; padding-left: 10px; padding-right:10px; margin-top: 20px; margin-left: 5px; margin-right: 5px; width:auto; ">
+    <form>
+        <input type="hidden" value="Model.version">
+
+        <div class="row" style="color: red;" ng-show="!!Model.errors.length">
+            <ul>
+                <li ng-repeat="error in Model.errors">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                Name<br/>
+                <input class="form-control" type="text" ng-model="Model.name" placeholder="name">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                Print Layout<br/>
+                <input type="radio" id="landscape" ng-model="Model.type" value="landscape">&nbsp;<label for="landscape">Landscape</label>
+                <input type="radio" id="portrait" ng-model="Model.type" value="portrait">&nbsp;<label for="portrait">Portrait</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                Contract Format<br/>
+                <select style="width: 100%;"
+                        ng-model="Model.layoutid"
+                        ng-options="rel.id as rel.filename for rel in Layouts">
+                    <option style="display:none" value=""></option>
+                </select>
+            </div>
+        </div>
+        <!-- Header Image -->
+        <div class="row" ng-hide="headershow">
+            <div class="col-xs-12">
+                <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="headershow = !headershow"><i
+                        style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Header Image</a>
+            </div>
+        </div>
+        <div class="row" ng-show="headershow">
+            <div class="col-xs-12">
+                <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="headershow = !headershow"><i
+                        style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Header Image</a>
+            </div>
+        </div>
+        <div class="row" ng-show="headershow">
+            <div class="col-sm-12" style="text-align: center;">
+                <img  ng-show="Model.header.data.length > 1" style="width: 100%; padding: 10px;" src="data:image/png;base64,{{Model.header.data}}"/><br ng-show="Model.header.data.length > 1" />
+                <button type="button" class="btn btn-success" ng-click="GetImage(Model.header)"><i class="fa fa-camera"></i></button>
+                <button ng-show="Model.header.data.length > 1" type="button" class="btn btn-danger" ng-click="RemoveImage(Model, Model.header)"><i class="fa fa-trash"></i></button>
+            </div>
+        </div>
+        <!-- Header Image End -->
+
+        <!-- Terms Text -->
+        <div class="row" ng-hide="termshow">
+            <div class="col-xs-12">
+                <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="termshow = !termshow"><i
+                        style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Contract Terms</a>
+            </div>
+        </div>
+        <div class="row" ng-show="termshow">
+            <div class="col-xs-12">
+                <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="termshow = !termshow"><i
+                        style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Contract Terms</a>
+            </div>
+        </div>
+        <div class="row" ng-show="termshow">
+            <div class="col-sm-12" style="text-align: center">
+                <textarea class="form-control" ng-model="Model.term.data"
+                          placeholder="contract terms" style="width: 100%;" rows="2"></textarea>
+            </div>
+        </div>
+        <!-- Terms Text End -->
+
+        <!-- Footer Image -->
+        <div class="row" ng-hide="footershow">
+            <div class="col-xs-12">
+                <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="footershow = !footershow"><i
+                        style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Footer Image</a>
+            </div>
+        </div>
+        <div class="row" ng-show="footershow">
+            <div class="col-xs-12">
+                <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="footershow = !footershow"><i
+                        style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Footer Image</a>
+            </div>
+        </div>
+        <div class="row" ng-show="footershow">
+            <div class="col-sm-12" style="text-align: center;">
+                <img  ng-show="Model.footer.data.length > 1" style="width: 100%; padding: 10px;" src="data:image/png;base64,{{Model.footer.data}}"/><br ng-show="Model.footer.data.length > 1"/>
+                <button type="button" class="btn btn-success" ng-click="GetImage(Model.footer)"><i class="fa fa-camera"></i></button>
+                <button ng-show="Model.footer.data.length > 1" type="button" class="btn btn-danger" ng-click="RemoveImage(Model, Model.footer)"><i class="fa fa-trash"></i></button>
+            </div>
+        </div>
+        <!-- Footer Image End -->
+
+        <div class="row">
+            <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+                <button ng-disabled="saving" type="submit" class="btn btn-success" ng-click="Save(Model)">Save</button>
+                <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+                <!--<button ng-disabled="saving" type="submit" class="btn btn-primary" ng-click="Preview(Model)">Preview</button>-->
+            </div>
+        </div>
+    </form>
+</div>

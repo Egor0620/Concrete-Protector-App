@@ -1,0 +1,25 @@
+<div class="jumbotron" style="margin-top: 20px; margin-left: 5%; width:90%;">
+  <form class="form-horizontal" role="form" ng-submit="feedback(Model)" novalidate>
+    <div class="row" style="color: red;" ng-show="!!Model.errors.length">
+      <ul>
+        <li ng-repeat="error in Model.errors">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <span style="text-align: left;">Let us know what you think about the Coatings Estimator app, and how we can improve.</span><br/>
+          <textarea class="form-control" ng-model="Model.feedback"
+                    placeholder="feedback"
+                    style="width: 100%;" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 text-center" style="margin-top:10px;">
+        <button  ng-disabled="saving" type="submit" class="btn btn-success">Submit Feedback</button>
+        <a ng-click="Cancel()" class="btn btn-default">Cancel</a>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+<div class="jumbotron" style="margin-top: 20px; margin-left: 5%; width:90%;">
+    <form class="form-horizontal" role="form" id="LoginForm" name="LoginForm" ng-submit="register(model)">
+        <div class="row" ng-show="errors.length > 0">
+            <ul>
+                <li ng-repeat="error in errors">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="firstname" class="control-label">First Name</label><br/>
+                <input type="text" class="form-control" id="firstname" name="firstname" ng-model="model.firstname"
+                       ng-minlength=3
+                       required ng-focus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="lastname" class="control-label">Last Name</label><br/>
+                <input type="text" class="form-control" id="lastname" name="lastname" ng-model="model.lastname"
+                       ng-minlength=3
+                       required ng-focus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="email" class="control-label">Email Address</label><br/>
+                <input type="text" class="form-control" id="email" name="email" ng-model="model.username"
+                       ng-minlength=3
+                       required ng-focus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="password" class="control-label">Password</label><br/>
+                <input type="password" class="form-control" id="password" name="password" ng-model="model.password"
+                       ng-minlength=3
+                       required ng-focus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="confirmpassword" class="control-label">Confirm Password</label><br/>
+                <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" ng-model="model.confirmpassword"
+                       ng-minlength=3
+                       required ng-focus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <button ng-disabled="saving" type="submit" class="btn btn-success">Register</button>
+              <a ui-sref="index.login" class="btn btn-default">Login</a>
+            </div>
+        </div>
+    </form>
+</div>

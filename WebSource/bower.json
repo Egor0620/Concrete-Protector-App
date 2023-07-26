@@ -1,0 +1,16 @@
+{
+  "name": "estimate",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "1.3.11",
+    "jquery": "2.1.1",
+    "font-awesome": "~4.3.0",
+    "angular-ui-router": "~0.2.13",
+    "lodash": "~2.4.1",
+    "restangular": "~1.4.0",
+    "jSignature": "2.0.2",
+    "bootstrap": "~3.3.2",
+    "ngCordova": "~0.1.11-alpha",
+    "angular-bootstrap": "~0.12.0"
+  }
+}

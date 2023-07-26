@@ -1,0 +1,35 @@
+<div class="jumbotron" style="margin-top: 20px; margin-left: 5%; width:90%;">
+    <form class="form-horizontal" role="form" id="LoginForm" name="LoginForm" ng-submit="login(model)">
+        <div class="row" ng-show="errors.length > 0">
+            <ul>
+                <li ng-repeat="error in errors">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="username" class="control-label">Email address</label><br/>
+                <input type="text" class="form-control" id="username" name="username" ng-model="model.username"
+                       ng-minlength=3
+                       required ng-focus>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="password" class="control-label">Password</label><br/>
+                <input type="password" class="form-control" id="password" name="password" ng-model="model.password"
+                       ng-minlength=3
+                       required ng-focus>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-success">Login</button>
+                <a ui-sref="index.register" class="btn btn-default">Register</a>
+              <a ui-sref="index.forgotpassword" class="btn btn-default">Forgot Password</a>
+            </div>
+        </div>
+    </form>
+</div>

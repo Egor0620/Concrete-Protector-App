@@ -1,0 +1,378 @@
+<div class="entity">
+  <span ng-show="manageLead">
+  <div class="row" style="color: red;" ng-show="!!Model.errors.length">
+      <ul>
+          <li ng-repeat="error in Model.errors">
+              {{error}}
+          </li>
+      </ul>
+  </div>
+  <div class="row">
+      <div class="col-sm-6">
+          first name
+          <input class="form-control" type="text" ng-model="Lead.person.firstname" placeholder="first name"></div>
+      <div class="col-sm-6">
+          last name
+          <input class="form-control" type="text" ng-model="Lead.person.lastname" placeholder="last name"></div>
+  </div>
+  <div class="row">
+      <div class="col-sm-6">
+          Design Consult Date
+          <input type="text" ng-click="ds2 = true" is-open="ds2" datepicker-popup="shortDate" class="form-control"
+                 ng-model="Model.designconsult" close-text="Close" placeholder="design consult date"/>
+      </div>
+      <div class="col-sm-6 ">
+          Company
+          <input class="form-control" type="text" maxlength="249" ng-model="Lead.person.company" placeholder="company">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-6">
+          Installed
+          <input type="text" ng-click="install1 = true" is-open="install1" datepicker-popup="shortDate"
+                 class="form-control" ng-model="Model.install" close-text="Close" placeholder="installed"/>
+      </div>
+
+      <div class="col-sm-6">
+          Completed
+          <input type="text" ng-click="completed1 = true" is-open="completed1" datepicker-popup="shortDate"
+                 class="form-control" ng-model="Model.completed" close-text="Close" placeholder="completed"/>
+      </div>
+  </div>
+  <div class="row">
+
+      <div class="col-sm-6">
+          Active<br/>
+          <input type="radio" id="activestatus" ng-model="Model.status" value="1">&nbsp;<label
+              for="activestatus">True</label>
+          <input type="radio" id="inactivestatus" ng-model="Model.status" value="0">&nbsp;<label for="inactivestatus">False</label>
+      </div>
+      <div class="col-sm-6">
+          Status<br/>
+          <select style="width: 100%;"
+                  ng-model="Model.projectstatus"
+                  ng-options="rel.key as rel.value for rel in ProjectStatuses">
+              <option style="display:none" value=""></option>
+          </select>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12">
+          Address<br/>
+          <select style="width: 100%;"
+                  ng-model="Model.addressid"
+                  ng-options="rel.id as rel.address1 for rel in Addresses">
+              <option style="display:none" value=""></option>
+          </select>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+          <button type="button" class="btn btn-success" ng-click="SaveLead(Model)">Save</button>
+          <button type="button" class="btn btn-default" ng-click="CancelLeadUpdate(Model)">Cancel</button>
+      </div>
+  </div>
+    </span>
+
+  <span ng-hide="manageLead">
+    <span ng-hide="manageSystem">
+  <div class="row" style="padding-top: 10px;">
+      <div class="col-xs-12">
+          <button class="btn btn-primary btn-xs" ng-disabled="manageSystem" ng-click="EditLead(Lead)">
+              <span class="fa fa-pencil "></span>
+          </button>
+          &nbsp;&nbsp;{{Lead.person.firstname}}&nbsp;{{Lead.person.lastname}}
+          <span ng-if="Lead.person.company"><br/>company&nbsp;&nbsp;{{Lead.person.company}}</span>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-6">Estimate&nbsp;&nbsp;${{Model.totalcost}}</div>
+      <div class="col-xs-6">Total sq.ft.&nbsp;&nbsp;{{Model.totalarea}}</div>
+  </div>
+  <div class="row" ng-if="Model.designconsult || Model.completed">
+      <div class="col-sm-6" ng-if="Model.designconsult">design consult&nbsp;&nbsp;{{Model.designconsult | date :
+          format}}
+      </div>
+
+      <div class="col-sm-6" ng-if="Model.completed">completed&nbsp;&nbsp;{{Model.completed | date : format}}</div>
+  </div>
+  <div class="row">
+      <div class="col-sm-6" ng-if="Model.install">Installed&nbsp;&nbsp;{{Model.install | date : format}}</div>
+      <div class="col-sm-6" ng-if="Model.projectstatus">Status&nbsp;&nbsp;{{Model.projectstatus}}</div>
+  </div>
+  <div class="row" ng-if="Model.address.address1">
+      <div class="col-xs-12">
+          {{Model.address.address1}}
+          <span ng-if="Model.address.address2">, {{Model.address.address2}}</span>
+      </div>
+  </div>
+  <div class="row" ng-if="Model.address.address1">
+      <div class="col-xs-12">
+          {{Model.address.city}}, {{Model.address.state}} {{Model.address.zip}}
+      </div>
+  </div>
+</span>
+  <div class="row" style="color: red;" ng-show="!!LeadSystem.errors.length">
+      <ul>
+          <li ng-repeat="error in LeadSystem.errors">
+              {{error}}
+          </li>
+      </ul>
+  </div>
+
+  <div ng-hide="manageSystem">
+      <div class="row" ng-hide="showSystem">
+          <div class="col-xs-12">
+              <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showSystem = !showSystem"><i
+                      style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Systems</a>
+          </div>
+      </div>
+      <div class="row" ng-show="showSystem">
+          <div class="col-xs-12">
+              <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showSystem = !showSystem"><i
+                      style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Systems</a>
+          </div>
+      </div>
+      <div class="row" ng-show="showSystem">
+          <div class="col-xs-12">
+              <button type="button" ng-click="NewSystem()" class="btn btn-primary">
+                  <i style="margin-top: 3px;" class="pull-left fa fa-plus"></i>New System
+              </button>
+          </div>
+      </div>
+      <div ng-show="showSystem" class="row space2" style="margin-left: 2px; margin-right: 2px; cursor: pointer;"
+           ng-click="EditSystem(system, $index)"
+           ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+           ng-repeat="system in LeadSystems">
+          <div class="col-md-3"><b>Area Name:</b> {{system.name}}</div>
+          <div class="col-md-3"><b>System:</b> {{system.System.name}}</div>
+          <div class="col-md-3"><b>Area:</b> {{system.area}} sq/ft</div>
+          <div class="col-md-3"><b>Price:</b> {{system.saleprice * system.area | currency}}</div>
+
+      </div>
+  </div>
+  <div ng-show="manageSystem">
+      <div class="row">
+          <div class="col-xs-12">
+              Area Name
+              <input class="form-control" type="text" ng-model="LeadSystem.name"
+                     placeholder="area name">
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-6">
+              Length ft.
+              <input class="form-control" type="number" ng-model-options="{debounce:1000}" ng-change="AreaChanged()"
+                     ng-model="LeadSystem.arealength"
+                     placeholder="length">
+          </div>
+          <div class="col-sm-6">
+              Width ft.
+              <input class="form-control" type="number" ng-model-options="{debounce:1000}" ng-change="AreaChanged()"
+                     ng-model="LeadSystem.areawidth"
+                     placeholder="width">
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-12">
+              System
+              <select style="width: 100%;"
+                      ng-model="LeadSystem.systemid"
+                      ng-change="SystemChange(LeadSystem.systemid)"
+                      ng-options="rel.id as rel.name + ' $' + rel.saleprice +' / sqft' for rel in Systems">
+                  <option style="display:none" value=""></option>
+              </select>
+          </div>
+      </div>
+      <div class="row" ng-show="showSystem">
+          <div class="col-xs-12">
+
+          <span ng-hide="showIngredients">
+                    <a class="btn btn-link-nolink btn-md"
+                       ng-click="showIngredients = !showIngredients"><i
+                            style="margin-top: 3px;" class="pull-right fa fa-plus-circle"></i></a>
+          </span>
+          <span ng-show="showIngredients">
+                    <a class="btn btn-link-nolink btn-md"
+                       ng-click="showIngredients = !showIngredients"><i
+                            style="margin-top: 3px;" class="pull-right fa fa-minus-circle"></i></a>
+          </span>
+              Coverage: {{System.coverage}} sq.ft.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span ng-hide="showAreaPrice">
+                        <button class="btn btn-link btn-link-nolink" ng-click="showAreaPrice=!showAreaPrice">
+                            {{System.saleprice | currency}} / sqft
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+            </span>
+          <span ng-show="showAreaPrice">
+            <input type="number" step="any" style="background-color: green; color: white;"
+                   ng-model-options="{debounce:1000}" ng-change="AreaChanged()"
+                   ng-model="System.saleprice">
+                        <button class="btn btn-success" ng-click="showAreaPrice=!showAreaPrice">ok</button>
+          </span>
+              System Price: {{System.price | currency}}
+
+              <span ng-show="System.ingredients.length === 0 ">Select System</span>
+          <span ng-show="showIngredients">
+          <table style="margin-top: 20px;" ng-show="System.ingredients.length !== 0 " width="100%">
+              <thead>
+              <tr style="border: 1px solid black;">
+                  <th>
+                      <button class="btn btn-link btn-link-nolink" ng-click="showContractorPrice=!showContractorPrice">
+                          &nbsp;&nbsp;Amount&nbsp;
+                      </button>
+                  </th>
+                  <th ng-show="showContractorPrice">price</th>
+                  <th>Ingredient</th>
+                  <th>&nbsp;Extra&nbsp;</th>
+                  <th>&nbsp;Units&nbsp;</th>
+                  <th>Color</th>
+                  <th>Pattern</th>
+              </tr>
+              </thead>
+              <tbody style="border-bottom: 1px solid black;">
+              <tr ng-repeat="detail in System.ingredients">
+                  <td>&nbsp;&nbsp;{{detail.amount}}</td>
+                  <th ng-show="showContractorPrice">{{detail.contractorprice | currency}}</th>
+                  <td>{{detail.name}}</td>
+                  <td>{{detail.extra}}</td>
+                  <td>{{detail.factor}}</td>
+                  <td>
+                      <span ng-show="detail.colors.length === 0">No Colors</span>
+                      <select ng-show="detail.colors.length > 0" style="width: 100%;"
+                              ng-model="detail.style.colorid"
+                              ng-options="rel.id as rel.name for rel in detail.colors">
+                          <option style="display:none" value=""></option>
+                      </select>
+                  </td>
+                  <td>
+                      <span ng-show="detail.patterns.length === 0">No Patterns</span>
+                      <select style="width: 100%;"
+                              ng-show="detail.patterns.length > 0"
+                              ng-model="detail.style.patternid"
+                              ng-options="rel.id as rel.name for rel in detail.patterns">
+                          <option style="display:none" value=""></option>
+                      </select>
+                  </td>
+              </tr>
+              <tr ng-show="showContractorPrice">
+                  <td>Ingredient Cost</td>
+                  <td>{{System.contractortotalprice | currency}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              </tbody>
+          </table>
+          </span>
+          </div>
+      </div>
+      <div class="row" ng-show="showSystem">
+          <div class="col-xs-12" style="text-align: center; margin-top: 10px;">
+              <button ng-disabled="saving" type="button" class="btn btn-success" ng-click="SaveSystem(LeadSystem)">Save
+              </button>
+              <button type="button" class="btn btn-default" ng-click="CancelUpdateSystem(LeadSystem)">Cancel</button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Systems End -->
+
+<!-- Notes -->
+  <div class="row" ng-hide="showNotes">
+      <div class="col-xs-12">
+          <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showNotes = !showNotes"><i
+                  style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Notes</a>
+      </div>
+  </div>
+  <div class="row" ng-show="showNotes">
+      <div class="col-xs-12">
+          <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showNotes = !showNotes"><i
+                  style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Notes</a>
+      </div>
+  </div>
+  <div class="row" ng-show="showNotes">
+      <div class="col-xs-12">
+          Note<br/>
+          <textarea class="form-control" ng-model="NewNote.note"
+                    placeholder="note"
+                    style="width: 100%;" rows="2"></textarea>
+      </div>
+  </div>
+  <div class="row" ng-show="showNotes">
+      <div class="col-xs-12  text-center">
+          <button ng-disabled="saving" type="button" class="btn btn-success" ng-click="SaveNote(NewNote)">Save</button>
+      </div>
+  </div>
+  <div class="row" ng-show="showNotes">
+      <div class="col-xs-12">
+          <table style="background-color: white;" width="100%">
+              <thead>
+              <tr style="border-bottom: 1px solid gray;">
+                  <th>&nbsp;&nbsp;&nbsp;<a class="blueish" ng-click="predicate = 'body'; reverse=!reverse">Note</a>
+                  </th>
+                  <th><a class="blueish" ng-click="predicate = 'added'; reverse=!reverse">Date</a></th>
+              </tr>
+              </thead>
+              <tbody style="border-bottom: 1px solid black; padding-bottom: 10px; margin-bottom: 10px;">
+              <tr class="space2"
+                  ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+                  ng-repeat="note in Notes  | orderBy:predicate:reverse">
+                  <td>
+                      &nbsp;
+                      {{note.body}}
+                  </td>
+                  <td>{{note.added | date}}</td>
+              </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+<!-- Notes end -->
+    <!-- Images -->
+    <div class="row" ng-hide="showImages">
+        <div class="col-xs-12">
+            <a class="btn btn-left btn-primary btn-sm" style="width: 100%;" ng-click="showImages = !showImages"><i
+                    style="margin-top: 3px;" class="pull-left fa fa-plus-circle"></i> Images</a>
+        </div>
+    </div>
+      <div class="row" ng-show="showImages">
+          <div class="col-xs-12">
+              <a class="btn btn-left btn-warning btn-sm" style="width: 100%;" ng-click="showImages = !showImages"><i
+                      style="margin-top: 3px;" class="pull-left fa fa-minus-circle"></i> Images</a>
+          </div>
+      </div>
+      <div class="row" ng-show="showImages">
+          <div ng-hide="NewPicture" class="col-sm-12" style="text-align: center">
+              <button type="button" class="btn btn-success" ng-click="TakePicture()"><i
+                      class="fa fa-camera"></i>
+              </button>
+          </div>
+          <div ng-show="NewPicture" class="col-sm-12" style="text-align: center">
+              <img ng-show="AreaImage.data" style="width: 100%; padding: 10px;"
+                   src="data:image/png;base64,{{AreaImage.data}}"/><br/>
+              <button type="button" class="btn btn-success" ng-click="SaveAreaImage()">Save</button>
+              <button type="button" class="btn btn-default" ng-click="CancelSaveAreaImage()">Cancel</button>
+          </div>
+      </div>
+    <div class="row" ng-repeat="imageData in AreaImages" ng-show="showImages">
+        <div ng-show="imageData.data" class="col-sm-12" style="text-align: center; border-bottom: 1px solid #000000;">
+            <img style="width: 100%; padding: 10px;" src="data:image/png;base64,{{imageData.data}}"/><br/>
+            <button type="button" class="btn btn-danger" ng-click="RemoveAreaImage (imageData, $index)"><i
+                    class="fa fa-trash"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Images End -->
+
+      <div class="row">
+          <div class="col-xs-12" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">
+              <a ng-click="Cancel()" class="btn btn-default"><i class="fa fa-arrow-circle-left fa-lg"></i> </a>
+              <a ui-sref="index.contracts({projectid:projectid})" class="btn btn-primary"><i class="fa fa-pencil-square-o fa-lg"></i> </a>
+          </div>
+      </div>
+    </span>
+</div>

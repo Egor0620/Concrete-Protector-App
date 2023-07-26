@@ -1,0 +1,185 @@
+<div
+  style=" background-color: #ffffff; padding-left: 10px; padding-right:10px; margin-top: 20px; margin-left: 5px; margin-right: 5px; width:auto; ">
+  <span ng-show="editing">
+  <form novalidate>
+    <div class="row" style="color: red;" ng-show="!!Member.errors.length">
+      <ul>
+        <li ng-repeat="error in Member.errors">
+          {{error}}
+        </li>
+      </ul>
+    </div>
+    <div class="row" ng-hide="isNew">
+      <div class="col-xs-12">
+        Email {{Member.email}}
+      </div>
+    </div>
+    <div class="row" ng-show="isNew">
+      <div class="col-xs-12">
+        Email<br/><input class="form-control" type="text" ng-model="Member.email" placeholder="email">
+      </div>
+    </div>
+
+
+    <table class="tableview">
+      <tr class="tb-header">
+        <td>Systems</td>
+        <td>Leads</td>
+        <td>Financial</td>
+        <td>Contract</td>
+      </tr>
+      <tr>
+        <td>
+          <input type="checkbox" ng-model="Member.readsystem" name="readsystem" id="readsystem" value="value">
+          <label for="readsystem">Read</label>&nbsp;<br/>
+          <input type="checkbox" ng-model="Member.editsystem" name="editsystem" id="editsystem" value="value">
+          <label for="editsystem">Full</label>&nbsp;
+        </td>
+        <td>
+          <input type="checkbox" ng-model="Member.readlead" name="readlead" id="readlead" value="value">
+          <label for="readlead">Read</label>&nbsp;<br/>
+          <input type="checkbox" ng-model="Member.editlead" name="editlead" id="editlead" value="value">
+          <label for="editlead">Full</label>&nbsp;
+        </td>
+        <td>
+          <input type="checkbox" ng-model="Member.readfinancial" name="readfinancial" id="readfinancial" value="value">
+          <label for="readfinancial">Read</label>&nbsp;<br/>
+          <input type="checkbox" ng-model="Member.editfinancial" name="editfinancial" id="editfinancial" value="value">
+          <label for="editfinancial">Full</label>&nbsp;
+        </td>
+        <td>
+          <input type="checkbox" ng-model="Member.readcontract" name="readcontract" id="readcontract" value="value">
+          <label for="readcontract">Read</label>&nbsp;<br/>
+          <input type="checkbox" ng-model="Member.editcontract" name="editcontract" id="editcontract" value="value">
+          <label for="editcontract">Full</label>&nbsp;
+        </td>
+      </tr>
+    </table>
+
+
+
+    <div class="row" style="display:none; font-size:0.9em;">
+      <div class="col-xs-3">
+        Systems<br/>
+        <input type="checkbox" ng-model="Member.readsystem" name="readsystem" id="readsystem" value="value">
+        <label for="readsystem">Read</label>&nbsp;<br/>
+        <input type="checkbox" ng-model="Member.editsystem" name="editsystem" id="editsystem" value="value">
+        <label for="editsystem">Full</label>&nbsp;
+      </div>
+      <div class="col-xs-3">
+        Leads<br/>
+        <input type="checkbox" ng-model="Member.readlead" name="readlead" id="readlead" value="value">
+        <label for="readlead">Read</label>&nbsp;<br/>
+        <input type="checkbox" ng-model="Member.editlead" name="editlead" id="editlead" value="value">
+        <label for="editlead">Full</label>&nbsp;
+      </div>
+      <div class="col-xs-3">
+        Financial<br/>
+        <input type="checkbox" ng-model="Member.readfinancial" name="readfinancial" id="readfinancial" value="value">
+        <label for="readfinancial">Read</label>&nbsp;<br/>
+        <input type="checkbox" ng-model="Member.editfinancial" name="editfinancial" id="editfinancial" value="value">
+        <label for="editfinancial">Full</label>&nbsp;
+      </div>
+      <div class="col-xs-3">
+        Contract<br/>
+        <input type="checkbox" ng-model="Member.readcontract" name="readcontract" id="readcontract" value="value">
+        <label for="readcontract">Read</label>&nbsp;<br/>
+        <input type="checkbox" ng-model="Member.editcontract" name="editcontract" id="editcontract" value="value">
+        <label for="editcontract">Full</label>&nbsp;
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12" style="text-align: center; margin-bottom: 10px;">
+        <button ng-disabled="saving" type="submit" class="btn btn-success" ng-click="Save(Member)">Save</button>
+        <a ng-click="CancelEdit()" class="btn btn-default">Cancel</a>
+        <button ng-hide="isNew" type="button" class="btn btn-danger" ng-click="RemoveMember(Member)">Delete</button>
+      </div>
+    </div>
+  </form>
+  </span>
+</div>
+<div ng-hide="editing"
+     style=" padding-left: 10px; padding-right:10px; margin-left: 5px; margin-right: 5px; width:auto; ">
+  <div class="input-group">
+    <input type="text" class="form-control search-box shadow" placeholder="search" ng-model="search">
+    <a class="btn btn-success input-group-addon" ng-click="NewMember()">New</a>
+  </div>
+</div>
+<span ng-hide="editing">
+    <table width="100%;" ng-show="Members.length">
+      <thead>
+      <tr>
+        <th>&nbsp;&nbsp;
+          <i class="fa fa-ban text-danger"></i> no access
+          <i class="fa fa-circle read-access"></i> read access
+          <i class="fa fa-circle full-access"></i> full access</th>
+      </tr>
+      </thead>
+      <tbody style="border-bottom: 1px solid gray; padding-bottom: 10px; margin-bottom: 10px;">
+      <tr ng-click="EditMember(model,$index)" class="space2"
+          ng-repeat="model in Members | filter:search:strict  | orderBy:predicate:reverse"
+          ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+        >
+        <td>
+          <span class="pull-left">&nbsp;&nbsp;{{model.email}}</span>
+          <span class="pull-right">
+              <span class="fa-stack fa-lg" ng-if="model.system == 0">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-file-text-o fa-stack-1x read-access"></i>
+                <i class="fa fa-ban fa-stack-2x text-danger"></i>
+              </span>
+              <span class="fa-stack fa-lg" ng-if="model.system == 1">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-file-text-o fa-stack-1x read-access"></i>
+              </span>
+            <span class="fa-stack fa-lg" ng-if="model.system == 2">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-file-text-o fa-stack-1x  full-access"></i>
+              </span>
+            <span class="fa-stack fa-lg" ng-if="model.person == 0">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-user fa-stack-1x read-access"></i>
+                <i class="fa fa-ban fa-stack-2x text-danger"></i>
+              </span>
+              <span class="fa-stack fa-lg" ng-if="model.person == 1">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-user fa-stack-1x read-access"></i>
+              </span>
+            <span class="fa-stack fa-lg" ng-if="model.person == 2">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-user fa-stack-1x  full-access"></i>
+              </span>
+
+            <span class="fa-stack fa-lg" ng-if="model.financial == 0">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-usd fa-stack-1x read-access"></i>
+                <i class="fa fa-ban fa-stack-2x text-danger"></i>
+              </span>
+              <span class="fa-stack fa-lg" ng-if="model.financial == 1">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-usd fa-stack-1x read-access"></i>
+              </span>
+            <span class="fa-stack fa-lg" ng-if="model.financial == 2">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-usd fa-stack-1x  full-access"></i>
+              </span>
+            <span class="fa-stack fa-lg" ng-if="model.contract == 0">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-print fa-stack-1x read-access"></i>
+                <i class="fa fa-ban fa-stack-2x text-danger"></i>
+              </span>
+              <span class="fa-stack fa-lg" ng-if="model.contract == 1">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-print fa-stack-1x read-access"></i>
+              </span>
+            <span class="fa-stack fa-lg" ng-if="model.contract == 2">
+                <i class="fa fa-circle fa-stack-2x cpIconBack"></i>
+                <i class="fa fa-print fa-stack-1x  full-access"></i>
+              </span>
+
+            &nbsp;&nbsp;</span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+</span>

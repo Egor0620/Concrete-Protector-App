@@ -1,0 +1,30 @@
+<div style="width: 250px; margin-top: 15px; margin-left: auto; margin-right: auto;">
+  <div class="input-group">
+    <input type="text" class="form-control search-box shadow" placeholder="search" ng-model="search">
+    <a ng-disabled="!canCreate()" class="btn btn-success input-group-addon" style="border:none;" ui-sref="{{newmodel}}">New</a>
+  </div>
+</div>
+<div class="row" ng-show="errors.length > 0">
+  <ul>
+    <li ng-repeat="error in errors">
+      {{error}}
+    </li>
+  </ul>
+</div>
+<div style="margin-top: 15px; width:100%; color: white; padding-left:0.7em; padding-right:0.7em">
+  <table width="100%;">
+    <thead>
+    <tr style="border-bottom: 1px solid gray;">
+      <th><a class="white" ng-click="predicate = 'name'; reverse=!reverse">Name</a></th>
+    </tr>
+    </thead>
+    <tbody style="padding-bottom: 10px; margin-bottom: 10px;">
+    <tr ng-click="goto(model.id)" class="space2"
+        ng-repeat="model in Models | filter:search:strict  | orderBy:predicate:reverse"
+        ng-class-odd="'cpOddRow'" ng-class-even="'cpEvenRow'"
+      >
+      <td>&nbsp;&nbsp;{{model.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,4 @@
+*.apk
+Service/upload/*.*
+AppSource/Coatings Estimator/platforms/
+AppSource/Coatings Estimator/node_modules/
